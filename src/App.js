@@ -15,6 +15,12 @@ import NotFound from "./components/NotFound";
 import {BrowserRouter as Router, Switch, Routes, Route, Link, Outlet} from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MenPage from "./pages/MenPage"
+import AboutPage from "./pages/AboutPage"
+import ContactPage from "./pages/ContactPage";
+import KidsPage from  "./pages/KidsPage";
+
+import WomenPage from "./pages/WomenPage";
 
 class App extends Component {
     render() {
@@ -23,12 +29,12 @@ class App extends Component {
                 <Header></Header>
                 <Navigation></Navigation>
                 <Switch>
-                    <Route path="/" component={Muskarci} exact />
-                    <Route path="/about" component={About} />
-                    <Route path="/zene" component={Zene} />
-                    <Route path="/djeca" component={Djeca}></Route>
-                    <Route path="/kontakt" component={Contact}></Route>
-                    <Route component={NotFound} />
+                    <Route path="/" component={MenPage} exact/>
+                    <Route path="/about" component={AboutPage}/>
+                    <Route path="/zene" component={WomenPage}/>
+                    <Route path="/djeca" component={KidsPage}></Route>
+                    <Route path="/kontakt" component={ContactPage}></Route>
+                    <Route component={NotFound}/>
                 </Switch>
                 <Footer></Footer>
             </main>
