@@ -12,6 +12,7 @@ class Navigation extends Component{
                         <Link to="/zene">Zene </Link>
                         <Link to="/djeca">Djeca</Link>
                         <Link to="/kontakt">Kontakt</Link>
+                        <Link to="/login">Login</Link>
                     </div>
                 );
             };

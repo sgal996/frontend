@@ -21,10 +21,14 @@ import ContactPage from "./pages/ContactPage";
 import KidsPage from  "./pages/KidsPage";
 
 import WomenPage from "./pages/WomenPage";
+import LoginPage from "./pages/LoginPage";
+import {Provider} from "react-redux";
+import store from "./redux/store";
 
 class App extends Component {
     render() {
         return (
+
             <main>
                 <Header></Header>
                 <Navigation></Navigation>
@@ -34,10 +38,13 @@ class App extends Component {
                     <Route path="/zene" component={WomenPage}/>
                     <Route path="/djeca" component={KidsPage}></Route>
                     <Route path="/kontakt" component={ContactPage}></Route>
+                    <Route path="/login" component={LoginPage}></Route>
+
                     <Route component={NotFound}/>
                 </Switch>
                 <Footer></Footer>
             </main>
+
         )
     }
 }
