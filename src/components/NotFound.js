@@ -6,6 +6,7 @@ class NotFound extends Component{
         return (
             <div>
                 <div><Link to="/home">Click here to go back to home page</Link></div>
+                //FIXME beautify
             </div>
         )
     }

@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <h1>Something in my header!!</h1>
+                <h1>Something in my header!! //FIXME make me beautiful</h1>
             </div>
         )
     }

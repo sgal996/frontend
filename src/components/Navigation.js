@@ -16,6 +16,8 @@ class Navigation extends Component {
                 <Link to="/djeca">Djeca</Link>
                 <Link to="/kontakt">Kontakt</Link>
                 <Link to="/login">Login</Link>
+
+                //TODO think we are good here but still..
             </div>
         );
     };

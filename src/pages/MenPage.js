@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 import {currentUser} from "../redux/services/dashboard.service";
 import {connect} from "react-redux";
-
+import ProductList from "../components/ProductList";
 
 
 class MenPage extends Component {
@@ -16,7 +16,7 @@ class MenPage extends Component {
 
 
         return (
-            <div>Men Page sth </div>
+            <div><ProductList></ProductList> </div>
         );
     }
 }

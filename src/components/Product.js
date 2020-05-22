@@ -6,7 +6,11 @@ class Product extends Component{
             <div>
                 //slika
                 //ime
+                //TODO  sastaviti komponentu Product
+
             </div>
         )
     }
 }
+
+export default Product;

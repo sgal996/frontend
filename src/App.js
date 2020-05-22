@@ -24,6 +24,7 @@ import WomenPage from "./pages/WomenPage";
 import LoginPage from "./pages/LoginPage";
 import {Provider} from "react-redux";
 import store from "./redux/store";
+import RegistrationPage from "./pages/RegistrationPage";
 
 class App extends Component {
     render() {
@@ -39,6 +40,7 @@ class App extends Component {
                     <Route path="/djeca" component={KidsPage}></Route>
                     <Route path="/kontakt" component={ContactPage}></Route>
                     <Route path="/login" component={LoginPage}></Route>
+                    <Route path="/register" component={RegistrationPage}></Route>
 
                     <Route component={NotFound}/>
                 </Switch>
