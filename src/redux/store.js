@@ -5,10 +5,12 @@ import thunk from "redux-thunk";
 import auth from "./modules/auth";
 import logger from "redux-logger"
 import dashboard from "./modules/dashboard";
+import shop from "./modules/shop";
 
 const combinedReducers = combineReducers({
     auth,
-    dashboard
+    dashboard,
+    shop
 
 });
 

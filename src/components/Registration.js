@@ -12,6 +12,7 @@ class Registration extends Component {
             email: '',
             password: '',
             rePassword: '',
+            adress:'',
             administrator: false
 
         }
@@ -30,6 +31,9 @@ class Registration extends Component {
         this.setState({rePassword: e.target.value})
 
     };
+    handleChangeAdress = e =>{
+        this.setState({adress: e.target.value})
+    }
     handleSubmit = () => {
         const {onRegister} = this.props;
         onRegister(this.state);
@@ -61,6 +65,11 @@ class Registration extends Component {
                         <Label for="repassword">Lozinka</Label>
                         <Input type={"password"} placeholder="Ponovi lozinku"
                                onChange={this.handleChangeRePassword}></Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="adress">Lozinka</Label>
+                        <Input type={"text"} placeholder="Vaša adresa"
+                               onChange={this.handleChangeAdress}></Input>
                     </FormGroup>
                     <Button color="primary" onClick={this.handleSubmit}>Registriraj se</Button>
                 </Form>
