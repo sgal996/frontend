@@ -7,6 +7,8 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "mdbreact": "^4.27.0",
     "pages": "0.0.16",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -17,6 +19,7 @@
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {

@@ -15,7 +15,7 @@ class LoginPage extends Component {
                 to={{
                     pathname: "/",
                     state: { from: this.props.location }
-                }}/>;
+                }} authenticated={authenticated}/>;
         }
 
         return (

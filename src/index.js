@@ -3,16 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter} from "react-router-dom";
+
 import store from "./redux/store";
 import {Provider} from "react-redux";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+import {BrowserRouter} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { PersistGate } from 'redux-persist/integration/react'
+import {persistorr} from "./redux/store"
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </Provider>,
+        <PersistGate loading={null} persistor={persistorr}>
+            <BrowserRouter>
+                <Header></Header>
+                <Navigation/>
+                <Footer></Footer>
+            </BrowserRouter>
+        </PersistGate>
+    </Provider>
+    ,
     document.getElementById('root')
 );
 

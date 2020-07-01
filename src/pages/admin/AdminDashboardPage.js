@@ -8,3 +8,5 @@ class AdminDashboardPage extends Component{
         )
     }
 }
+
+export default AdminDashboardPage;

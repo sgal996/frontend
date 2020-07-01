@@ -7,6 +7,7 @@ import {getMenProducts} from "../redux/services/shop.service";
 import PropTypes, {object} from "prop-types";
 import Registration from "../components/Registration";
 import {Button} from "reactstrap";
+import Product from "../components/Product";
 
 
 class MenPage extends Component {
@@ -18,6 +19,7 @@ class MenPage extends Component {
             products:[],
             got: false
         }
+
     }
 
     componentDidMount() {
@@ -25,18 +27,18 @@ class MenPage extends Component {
         const {getMenProducts} = this.props;
 
 
-        this.setState({got: true}, () => getMenProducts());
+        this.setState({got: true},  () => getMenProducts());
 
     }
 
 
     render() {
         const {got} = this.state;
-        const {products} = this.state;
+        const {products} = this.props;
 
 
         if (got) {
-            return (<div>checking...
+            return (<div>auuth check {products.filter((product) => (product.description === 'mobitel')).map((product) => (<Product name={product.name} description={product.description} newProduct={product.newProduct} price={product.price} category={product.category} img={product.img} key={product.id}> </Product>))}
                </div>)
 
 
@@ -55,6 +57,7 @@ class MenPage extends Component {
 const mapStateToProps = state => {
     return {
         products: state.shop.products,
+
 
 
     };
