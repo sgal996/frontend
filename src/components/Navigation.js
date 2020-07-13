@@ -27,6 +27,12 @@ import AdminDashboardPage from "../pages/admin/AdminDashboardPage";
 
 import {connect} from "react-redux";
 import {logout} from "../redux/services/auth.service";
+import OrdersPage from "../pages/OrdersPage";
+import UserInfoPage from "../pages/UserInfoPage";
+import AddProductPage from "../pages/admin/AddProductPage";
+
+import CartPage from "../pages/CartPage";
+
 
 
 class Navigation extends Component {
@@ -86,6 +92,9 @@ class Navigation extends Component {
                             <NavItem>
                                 <NavLink href="/login" className="hoverable">Login</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink href="/dodaj" className="hoverable">Dodaj proizvod</NavLink>
+                            </NavItem>
                             {
 
                                 user.roles.includes("ROLE_ADMIN") &&
@@ -93,32 +102,31 @@ class Navigation extends Component {
                                     <NavLink href="/admin" className="hoverable">Admin Dashboard</NavLink>
                                 </NavItem>
 
-                            }
+                            }{ user.roles.includes("ROLE_USER") &&
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret className="hoverable">
                                     Postavke
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        Option 1
+                                        <NavLink href="/narudzbe" className="hoverable">Moje narudžbe</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        Option 2
+                                        <NavLink href="/myinfo" className="hoverable">Moji podaci</NavLink>
                                     </DropdownItem>
-                                    <DropdownItem divider/>
-                                    <DropdownItem>
-                                        Reset
-                                    </DropdownItem>
+
                                 </DropdownMenu>
-                            </UncontrolledDropdown>
+                            </UncontrolledDropdown>}
                             <NavItem>
                                 <NavLink href="/muskarci" className="hoverable"
                                          onClick={this.handleLogout}>Logout</NavLink>
                             </NavItem>
                         </Nav>
-                        <NavbarText>Clothes Shop</NavbarText>
+                        <NavbarText><Link to='/cart'>Cart</Link></NavbarText>
                     </Collapse>
                 </Navbar>
+
+
 
                 <Switch>
                     <Route path="/muskarci">
@@ -144,9 +152,21 @@ class Navigation extends Component {
                     <Route path="/admin">
                         <AdminDashboardPage/>
                     </Route>
+                    <Route  path="/dodaj">
+                        <AddProductPage></AddProductPage>
+                    </Route>
 
                     <Route path="/register">
                         <RegistrationPage></RegistrationPage>
+                    </Route>
+                    <Route path="/narudzbe">
+                        <OrdersPage></OrdersPage>
+                    </Route>
+                    <Route path="/myinfo">
+                        <UserInfoPage></UserInfoPage>
+                    </Route>
+                    <Route path="/cart">
+                        <CartPage></CartPage>
                     </Route>
                 </Switch>
 

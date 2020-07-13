@@ -3,32 +3,54 @@ import {shopActions} from "../modules/shop";
 
 const dat = {id: 4}
 
-const getMenProducts = (x) => dispatch => {
-    dispatch(shopActions.getMenProducts());
-
-
+const getProducts = () => dispatch => {
+    dispatch(shopActions.getProducts());
     return serverCall({
         method: 'GET',
-        url: '/products/getbyid',
-        params: x
-
+        url: '/products/all',
     })
         .then(
             res => {
-                dispatch(shopActions.getMenProductsSuccess(res.data))
+                dispatch(shopActions.getProductsSuccess(res.data))
             }
         ).catch(error => {
-            dispatch(shopActions.getMenProductsFailure(error))
+            dispatch(shopActions.getProductsFailure(error))
         })
 
-
 };
-const addToCart = (product)=> {
-    return  function  (dispatch){
-        dispatch(shopActions.addToCart(product))
+
+
+const getOrders = () => dispatch =>{
+    dispatch(shopActions.getOrders());
+    return serverCall({
+        method: 'GET',
+        url: '/orders/getorders'
+    }).then(res => {
+        dispatch(shopActions.getOrdersSuccess(res.data))
+    }).catch(error =>{
+        dispatch(shopActions.getOrdersFailure(error))
+    } )
+}
+
+
+
+const addProduct = (product) =>dispatch =>{
+    dispatch(shopActions.addProduct());
+    return serverCall({
+        method:'POST',
+        url: '/admin/add',
+        data: product
     }
+    ).then(res=>{
+        dispatch(shopActions.addProductSuccess(res.data))
+    }).catch(error=>{
+        dispatch(shopActions.addProductFailure(error))
+    })
 }
 
 export {
-    getMenProducts
+    getProducts,
+    getOrders,
+
+    addProduct
 }

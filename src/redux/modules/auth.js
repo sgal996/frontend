@@ -5,7 +5,15 @@ const types = {
     LOGOUT: 'auth/LOGOUT',
     REGISTER: 'auth/REGISTER',
     REGISTER_SUCCESS: 'auth/REGISTER_SUCCESS',
-    REGISTER_FAILURE: 'auth/REGISTER_FAILURE'
+    REGISTER_FAILURE: 'auth/REGISTER_FAILURE',
+    ADD_TO_CART: 'auth/ADD_TO_CART',
+    EMPTY_CART: 'auth/EMPTY_CART',
+    CHANGE_INFO: 'auth/CHANGE_INFO',
+    CHANGE_INFO_SUCCESS: 'auth/CHANGE_INFO_SUCCESS',
+    CHANGE_INFO_FAILURE: 'auth/CHANGE_INFO_FAILURE',
+    GET_USER_INFO: "auth/GET_USER_INFO",
+    GET_USER_INFO_SUCCESS: "auth/GET_USER_INFO_SUCCESS",
+    GET_USER_INFO_FAILURE: "auth/GET_USER_INFO_FAILURE",
 
 };
 
@@ -16,17 +24,31 @@ const actions = {
     logout: () => ({type: types.LOGOUT}),
     register: () => ({type: types.REGISTER}),
     registerSuccess: (user) => ({type: types.REGISTER_SUCCESS, payload: user}),
-    registerFailure: (error) => ({type: types.REGISTER_FAILURE, payload: error})
+    registerFailure: (error) => ({type: types.REGISTER_FAILURE, payload: error}),
+    addToCart: (product) => ({type: types.ADD_TO_CART, payload: product}),
+    emptyCart: () => ({type: types.EMPTY_CART}),
+    changeInfo: () => ({type: types.CHANGE_INFO}),
+    changeInfoSuccess: (user) => ({type: types.CHANGE_INFO_SUCCESS, payload: user}),
+    changeInfoFailure: (error) => ({type: types.CHANGE_INFO_FAILURE, error: error}),
+    getUserInfo: () => ({type: types.GET_USER_INFO}),
+    getUserInfoSuccess: (userInfo) => ({type: types.GET_USER_INFO_SUCCESS, payload: userInfo}),
+    getUserInfoFailure: (error) => ({type: types.GET_USER_INFO_SUCCESS, error: error}),
+
+
 }
 
 const initialState = () => ({
 
     loading: true,
     authenticated: false,
-    registered: false
+    registered: false,
+    cart: [],
+    userInfo: null,
+    error: null
 });
 
 const auth = (state = initialState(), action) => {
+
     switch (action.type) {
         case types.LOGIN:
             return {
@@ -78,6 +100,57 @@ const auth = (state = initialState(), action) => {
                 loading: false,
                 error: action.error,
                 registered: false
+            }
+
+        case types.ADD_TO_CART:
+
+
+            return {
+                ...state,
+                cart: [...state.cart, action.payload],
+
+
+            };
+        case types.EMPTY_CART:
+            return {
+                ...state,
+                cart: []
+            }
+        case types.CHANGE_INFO:
+            return {
+                ...state,
+                loading: true,
+
+            }
+        case types.CHANGE_INFO_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                userInfo: action.payload
+            }
+        case types.CHANGE_INFO_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case types.GET_USER_INFO:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        case types.GET_USER_INFO_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                userInfo: action.payload
+            }
+        case types.GET_USER_INFO_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
             }
         default:
             return state;

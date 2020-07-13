@@ -17,7 +17,10 @@ import Footer from "./components/Footer";
 import { PersistGate } from 'redux-persist/integration/react'
 import {persistorr} from "./redux/store"
 
+
+
 ReactDOM.render(
+
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistorr}>
             <BrowserRouter>
@@ -27,6 +30,7 @@ ReactDOM.render(
             </BrowserRouter>
         </PersistGate>
     </Provider>
+
     ,
     document.getElementById('root')
 );

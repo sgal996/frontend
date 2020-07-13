@@ -30,7 +30,7 @@ class LoginPage extends Component {
                 </div>
                 }
                 <Login onLogin={onLogin} />
-                <Link to={'/signup'}>Registracija</Link>
+                <Link to={'/register'}>Registracija</Link>
             </div>
         )
     }

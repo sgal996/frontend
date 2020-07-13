@@ -18,6 +18,8 @@ const combinedReducers = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
+    whitelist:['auth','shop'],
+    blacklist: ['dashboard']
 
 }
 const persistedReducer = persistReducer(persistConfig, combinedReducers);

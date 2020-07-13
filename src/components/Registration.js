@@ -84,7 +84,7 @@ class Registration extends Component {
                 </Row>
                 <Col sm="4" md="4" lg="4" xl="4"></Col>
                 <Col sm="4" md="4" lg="4" xl="4">
-                    <Button color="primary" onClick={this.handleSubmit}>Registriraj se</Button>
+
                 </Col>
 
             </div>

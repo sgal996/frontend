@@ -1,27 +1,30 @@
 const types = {
-    GET_MEN_PRODUCTS: "shop/GET_MEN_PRODUCTS",
-    GET_MEN_PRODUCTS_SUCCESS: "shop/GET_MEN_PRODUCTS_SUCCESS",
-    GET_MEN_PRODUCTS_FAILURE: "shop/GET_MEN_PRODUCTS_FAILURE",
-    GET_WOMEN_PRODUCTS: "shop/GET_WOMEN_PRODUCTS",
-    GET_WOMEN_PRODUCTS_SUCCESS: "shop/GET_WOMEN_PRODUCTS_SUCCESS",
-    GET_WOMEN_PRODUCTS_FAILURE: "shop/GET_WOMEN_PRODUCTS_FAILURE",
-    GET_KIDS_PRODUCTS: "shop/GET_KIDS_PRODUCTS",
-    GET_KIDS_PRODUCTS_SUCCESS: "shop/GET_KIDS_PRODUCTS_SUCCESS",
-    GET_KIDS_PRODUCTS_FAILURE: "shop/GET_KIDS_PRODUCTS_FAILURE",
-    ADD_TO_CART: "shop/ADD_TO_CART"
+    GET_PRODUCTS: "shop/GET_PRODUCTS",
+    GET_PRODUCTS_SUCCESS: "shop/GET_PRODUCTS_SUCCESS",
+    GET_PRODUCTS_FAILURE: "shop/GET_PRODUCTS_FAILURE",
+    ADD_TO_CART: "shop/ADD_TO_CART",
+    GET_ORDERS: "shop/GET_ORDERS",
+    GET_ORDERS_SUCCESS: "shop/GET_ORDERS_SUCCESS",
+    GET_ORDERS_FAILURE: "shop/GET_ORDERS_FAILURE",
+
+    ADD_PRODUCT: "shop/ADD_PRODUCT",
+    ADD_PRODUCT_SUCCESS: "shop/ADD_PRODUCT_SUCCESS",
+    ADD_PRODUCT_FAILURE: "shop/ADD_PRODUCT_FAILURE"
 };
 
 const actions = {
-    getMenProducts: () => ({type: types.GET_MEN_PRODUCTS}),
-    getMenProductsSuccess: (products) => ({type: types.GET_MEN_PRODUCTS_SUCCESS, payload: products}),
-    getMenProductsFailure: (error) => ({type: types.GET_MEN_PRODUCTS_FAILURE, error: error}),
-    getWomenProducts: () => ({type: types.GET_WOMEN_PRODUCTS}),
-    getWomenProductsSuccess: (products) => ({type: types.GET_WOMEN_PRODUCTS_SUCCESS, payload: products}),
-    getWomenProductsFailure: (error) => ({type: types.GET_WOMEN_PRODUCTS_FAILURE, error: error}),
-    getKidsProducts: () => ({type: types.GET_KIDS_PRODUCTS}),
-    getKidsProductsSuccess: (products) => ({type: types.GET_KIDS_PRODUCTS, payload: products}),
-    getKidsProductsFailure: (error) => ({type: types.GET_KIDS_PRODUCTS_FAILURE, error: error}),
-    addToCart: (product) => ({type: types.ADD_TO_CART, payload: product})
+    getProducts: () => ({type: types.GET_PRODUCTS}),
+    getProductsSuccess: (products) => ({type: types.GET_PRODUCTS_SUCCESS, payload: products}),
+    getProductsFailure: (error) => ({type: types.GET_PRODUCTS_FAILURE, error: error}),
+
+
+    getOrders: () => ({type: types.GET_ORDERS}),
+    getOrdersSuccess: (orders) => ({type: types.GET_ORDERS_SUCCESS, payload: orders}),
+    getOrdersFailure: (error) => ({type: types.GET_ORDERS_SUCCESS, error: error}),
+
+    addProduct: () => ({type: types.ADD_PRODUCT}),
+    addProductSuccess: (product) => ({type: types.ADD_PRODUCT_SUCCESS, payload: product}),
+    addProductFailure: (error) => ({type: types.ADD_PRODUCT_FAILURE, error: error})
 
 }
 const initialState = () => (
@@ -29,35 +32,67 @@ const initialState = () => (
         loading: false,
         products: [],
         error: null,
-        cart: []
+
+        orders: [],
+
     }
 )
 
 const shop = (state = initialState(), action) => {
     switch (action.type) {
-        case types.GET_MEN_PRODUCTS:
+        case types.GET_PRODUCTS:
             return {
                 ...state,
                 loading: true,
                 error: null
             };
-        case types.GET_MEN_PRODUCTS_SUCCESS:
+        case types.GET_PRODUCTS_SUCCESS:
             return {
                 ...state,
                 products: action.payload,
                 loading: false
             };
-        case types.GET_MEN_PRODUCTS_FAILURE:
+        case types.GET_PRODUCTS_FAILURE:
             return {
                 ...state,
                 products: [],
                 error: action.error
             };
-        case types.ADD_TO_CART:
+
+        case types.GET_ORDERS:
             return {
                 ...state,
-                cart: [...state.cart, action.payload
-            ]
+                loading: true,
+                error: null
+            }
+        case types.GET_ORDERS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                orders: action.payload
+            }
+        case types.GET_ORDERS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+
+        case types.ADD_PRODUCT:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.ADD_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                products: [...state.products, action.payload]
+            }
+        case types.ADD_PRODUCT_FAILURE:
+            return {
+                ...state,
+                error: action.error
             }
         default:
             return state;
