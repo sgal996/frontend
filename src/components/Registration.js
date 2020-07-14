@@ -3,6 +3,8 @@ import {Form, FormGroup, Input, Label, Button} from "reactstrap"
 import PropTypes from "prop-types"
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col"
+import {Link, Redirect} from "react-router-dom";
+import {connect} from "react-redux";
 
 class Registration extends Component {
 
@@ -41,8 +43,17 @@ class Registration extends Component {
 
     };
 
+    handleChangeAdministrator = () => {
+        this.setState({administrator: !this.state.administrator});
+    };
+
 
     render() {
+        const {registered} = this.props;
+        if(registered){
+            return(
+            <Redirect to={"/login"}/>)
+        }
         return (
             <div>
                 <Row>
@@ -77,7 +88,14 @@ class Registration extends Component {
                                        onChange={this.handleChangeAdress}></Input>
 
                             </FormGroup>
-
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" onChange={this.handleChangeAdministrator}/> Administrator
+                                </Label>
+                            </FormGroup>
+                            <Button className={'btn-lg btn-dark btn-block'} onClick={this.handleSubmit}>
+                                Registracija
+                            </Button>
 
                         </Form>
                     </Col>
@@ -96,4 +114,12 @@ Registration.propTypes = {
     onRegister: PropTypes.func
 };
 
-export default Registration;
+const mapStateToProps = state =>{
+    return{
+        registered: state.auth.registered
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(Registration);

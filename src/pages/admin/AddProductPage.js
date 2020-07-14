@@ -6,6 +6,7 @@ import {shopActions} from "../../redux/modules/shop";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {addProduct} from "../../redux/services/shop.service";
+import {Redirect} from "react-router-dom";
 
 class AddProductPage extends Component {
 
@@ -48,6 +49,14 @@ class AddProductPage extends Component {
 
     render() {
         const categories = [{c:'Muskarci',idx: 1}, {c:'Zene', idx:2}, {c:'Djeca', idx:3}];
+        const {user} = this.props;
+
+        if(user === undefined || user === null){
+            return (
+                <Redirect to={"/login"}/>
+            )
+        }
+
         return (
             <div>
                 <Row>
@@ -98,12 +107,18 @@ const mapDispatchToProps = dispatch =>{
         onAddProduct: (product) => dispatch(addProduct(product))
     }
 }
+
+const mapStateToProps = state => {
+    return{
+        user: state.auth.user
+    }
+}
 AddProductPage.propTypes = {
     onAddProduct: PropTypes.func
 };
 
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(AddProductPage);

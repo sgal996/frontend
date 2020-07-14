@@ -28,7 +28,7 @@ class UserInfoPage extends Component {
         const {user} = this.props;
         const {changeInfo} = this.props;
 
-        if (user !== undefined) {
+        if (user !== undefined && user!== null) {
             return (
                 <div>
                     <UserInfo  user={user} changeInfo={changeInfo}/>

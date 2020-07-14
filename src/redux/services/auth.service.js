@@ -45,7 +45,7 @@ const register = (request) => dispatch => {
             dispatch(authActions.registerSuccess(res.data));
         })
         .catch(error => {
-            dispatch(authActions.registerFailure(error.response.data));
+            dispatch(authActions.registerFailure(error));
         })
 };
 const emptyCart = () => dispatch => {

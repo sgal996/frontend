@@ -63,7 +63,7 @@ const auth = (state = initialState(), action) => {
                 loading: false,
                 user: action.payload,
                 authenticated: true,
-                registered: true
+                registered: false
             };
         case types.LOGIN_FAILURE:
             return {
@@ -77,7 +77,11 @@ const auth = (state = initialState(), action) => {
                 ...state,
                 loading: false,
                 authenticated: false,
-                error: null
+                error: null,
+                user: null,
+                userInfo: null,
+                registered: false
+
 
             }
         case types.REGISTER:

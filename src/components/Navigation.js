@@ -53,56 +53,134 @@ class Navigation extends Component {
     handleLogout = () => {
         const {logout} = this.props;
         logout();
+
     }
 
 
     render() {
 
 
-        let {user} = this.props;
+        const {user} = this.props;
+
+
         if (user === undefined) {
-            user = {};
-            user.roles = "nikoinista"
-
-        }
+            return (
+                <div>
 
 
-        return (
-
-            <div>
-
-
-                <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">Clothes Shop</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle}/>
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="mr-auto" navbar>
-                            <NavItem>
-                                <NavLink href="/muskarci" className="hoverable">Muskarci</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/zene" className="hoverable">Zene</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/djeca" className="hoverable">Djeca</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/contact" className="hoverable">Kontakt</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/login" className="hoverable">Login</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/dodaj" className="hoverable">Dodaj proizvod</NavLink>
-                            </NavItem>
-                            {
-
-                                user.roles.includes("ROLE_ADMIN") &&
+                    <Navbar color="light" light expand="md">
+                        <NavbarBrand href="/">Clothes Shop</NavbarBrand>
+                        <NavbarToggler onClick={this.toggle}/>
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="mr-auto" navbar>
                                 <NavItem>
-                                    <NavLink href="/admin" className="hoverable">Admin Dashboard</NavLink>
+                                    <NavLink href="/muskarci" className="hoverable">Muskarci</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/zene" className="hoverable">Zene</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/djeca" className="hoverable">Djeca</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/contact" className="hoverable">Kontakt</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/login" className="hoverable">Login</NavLink>
                                 </NavItem>
 
-                            }{ user.roles.includes("ROLE_USER") &&
+
+                                <NavItem>
+                                    <NavLink href="/muskarci" className="hoverable"
+                                             onClick={this.handleLogout}>Logout</NavLink>
+                                </NavItem>
+                            </Nav>
+                            <NavbarText style={{cursor: 'pointer'}}><Link to='/cart'>Cart</Link></NavbarText>
+                        </Collapse>
+                    </Navbar>
+
+
+                    <Switch>
+                        <Route path="/muskarci">
+                            <MenPage/>
+                        </Route>
+                        <Route path="/zene">
+                            <WomenPage/>
+                        </Route>
+                        <Route path="/djeca">
+                            <KidsPage/>
+                        </Route>
+                        <Route path="/contact">
+                            <ContactPage/>
+                        </Route>
+                        <Route path="/about">
+                            <AboutPage/>
+                        </Route>
+
+                        <Route path="/login">
+                            <LoginPage/>
+                        </Route>
+
+                        <Route path="/admin">
+                            <AdminDashboardPage/>
+                        </Route>
+                        <Route path="/dodaj">
+                            <AddProductPage></AddProductPage>
+                        </Route>
+
+                        <Route path="/register">
+                            <RegistrationPage></RegistrationPage>
+                        </Route>
+                        <Route path="/narudzbe">
+                            <OrdersPage></OrdersPage>
+                        </Route>
+                        <Route path="/myinfo">
+                            <UserInfoPage></UserInfoPage>
+                        </Route>
+                        <Route path="/cart">
+                            <CartPage></CartPage>
+                        </Route>
+                    </Switch>
+
+
+                </div>
+            )
+        } else {
+            return (
+
+                <div>
+
+
+                    <Navbar color="light" light expand="md">
+                        <NavbarBrand href="/">Clothes Shop</NavbarBrand>
+                        <NavbarToggler onClick={this.toggle}/>
+                        <Collapse isOpen={this.state.isOpen} navbar>
+                            <Nav className="mr-auto" navbar>
+                                <NavItem>
+                                    <NavLink href="/muskarci" className="hoverable">Muskarci</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/zene" className="hoverable">Zene</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/djeca" className="hoverable">Djeca</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/contact" className="hoverable">Kontakt</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/login" className="hoverable">Login</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink href="/dodaj" className="hoverable">Dodaj proizvod</NavLink>
+                                </NavItem>
+
+                                    <NavItem>
+                                        <NavLink href="/admin" className="hoverable">Admin Dashboard</NavLink>
+                                    </NavItem>
+
+
+
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret className="hoverable">
                                     Postavke
@@ -116,63 +194,63 @@ class Navigation extends Component {
                                     </DropdownItem>
 
                                 </DropdownMenu>
-                            </UncontrolledDropdown>}
-                            <NavItem>
-                                <NavLink href="/muskarci" className="hoverable"
-                                         onClick={this.handleLogout}>Logout</NavLink>
-                            </NavItem>
-                        </Nav>
-                        <NavbarText><Link to='/cart'>Cart</Link></NavbarText>
-                    </Collapse>
-                </Navbar>
+                            </UncontrolledDropdown>
+                                <NavItem>
+                                    <NavLink href="/login" className="hoverable"
+                                             onClick={this.handleLogout}> Logout</NavLink>
+                                </NavItem>
+                            </Nav>
+                            <NavbarText><Link to='/cart'>Cart</Link></NavbarText>
+                        </Collapse>
+                    </Navbar>
 
 
+                    <Switch>
+                        <Route path="/muskarci">
+                            <MenPage/>
+                        </Route>
+                        <Route path="/zene">
+                            <WomenPage/>
+                        </Route>
+                        <Route path="/djeca">
+                            <KidsPage/>
+                        </Route>
+                        <Route path="/contact">
+                            <ContactPage/>
+                        </Route>
+                        <Route path="/about">
+                            <AboutPage/>
+                        </Route>
 
-                <Switch>
-                    <Route path="/muskarci">
-                        <MenPage/>
-                    </Route>
-                    <Route path="/zene">
-                        <WomenPage/>
-                    </Route>
-                    <Route path="/djeca">
-                        <KidsPage/>
-                    </Route>
-                    <Route path="/contact">
-                        <ContactPage/>
-                    </Route>
-                    <Route path="/about">
-                        <AboutPage/>
-                    </Route>
+                        <Route path="/login">
+                            <LoginPage/>
+                        </Route>
 
-                    <Route path="/login">
-                        <LoginPage/>
-                    </Route>
+                        <Route path="/admin">
+                            <AdminDashboardPage/>
+                        </Route>
+                        <Route path="/dodaj">
+                            <AddProductPage></AddProductPage>
+                        </Route>
 
-                    <Route path="/admin">
-                        <AdminDashboardPage/>
-                    </Route>
-                    <Route  path="/dodaj">
-                        <AddProductPage></AddProductPage>
-                    </Route>
-
-                    <Route path="/register">
-                        <RegistrationPage></RegistrationPage>
-                    </Route>
-                    <Route path="/narudzbe">
-                        <OrdersPage></OrdersPage>
-                    </Route>
-                    <Route path="/myinfo">
-                        <UserInfoPage></UserInfoPage>
-                    </Route>
-                    <Route path="/cart">
-                        <CartPage></CartPage>
-                    </Route>
-                </Switch>
+                        <Route path="/register">
+                            <RegistrationPage></RegistrationPage>
+                        </Route>
+                        <Route path="/narudzbe">
+                            <OrdersPage></OrdersPage>
+                        </Route>
+                        <Route path="/myinfo">
+                            <UserInfoPage></UserInfoPage>
+                        </Route>
+                        <Route path="/cart">
+                            <CartPage></CartPage>
+                        </Route>
+                    </Switch>
 
 
-            </div>
-        );
+                </div>
+            );
+        }
     };
 
 }
