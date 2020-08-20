@@ -1,5 +1,5 @@
 {
-  "homepage": "http://sgal996.github.io/frontend",
+  "homepage": "https://sgal996.github.io",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -82,7 +82,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "predeploy": "npm run build",
-    "deploy" : "gh-pages -d build"
+    "deploy" : "gh-pages -b master -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
