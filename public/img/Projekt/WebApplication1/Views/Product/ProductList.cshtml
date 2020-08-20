@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .innerbox {
+        width: 250px;
+        max-width: 250px;
+        height: 200px;
+        max-height: 200px;
+        display: inline-block;
+    }
+</style>
+<div class="container">
+    <div>
+        <h2>All products are shown here</h2>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Naziv</th>
+                <th scope="col">Cijena</th>
+                <th scope="col">Opis</th>
+                <th scope="col">Vrsta vozila</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr class="table-active">
+                    <th scope="row"><button class="btn btn-primary edit-person" data-target="#detailModal" data-toggle="modal" data-id="@product.ProductID">@product.Name</button></th>
+                    <td>@product.Price</td>
+                    <td>@product.Description</td>
+                    <td>@product.ProductSorter.Name</td>
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+    <div class="modal hide fade in" id="edit-person">
+        <div id="edit-person-container"></div>
+    </div>
+</div>
