@@ -11,7 +11,8 @@ const actions = {
 };
 
 const initialState = () => ({
-    loading: false
+    loading: false,
+    user: null
 });
 
 const dashboard = (state = initialState(), action) => {

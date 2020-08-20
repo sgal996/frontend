@@ -1,6 +1,7 @@
 import {authActions} from "../modules/auth";
 import {serverCall} from './backendCall';
 import {shopActions} from "../modules/shop";
+import {getOrders} from "./shop.service"
 
 
 const login = (request) => dispatch => {
@@ -17,6 +18,7 @@ const login = (request) => dispatch => {
             dispatch(authActions.loginSuccess(res.data));
 
 
+
         })
         .catch(error => {
             dispatch(authActions.loginFailure(error.response.data));
@@ -25,7 +27,7 @@ const login = (request) => dispatch => {
 };
 const addToCart = (product) => dispatch => {
 
-        dispatch(authActions.addToCart(product))
+    dispatch(authActions.addToCart(product))
 
 }
 
@@ -64,16 +66,58 @@ const changeInfo = (info) => dispatch => {
             dispatch(authActions.changeInfoFailure(error))
         })
 }
-const getUserInfo = () => dispatch =>{
+const getUserInfo = () => dispatch => {
     dispatch(authActions.getUserInfo());
     return serverCall({
-        method:'GET',
+        method: 'GET',
         url: '/user/myinfo'
-    }).then(res =>{
+    }).then(res => {
         dispatch(authActions.getUserInfoSuccess(res.data))
-    }).catch(error =>{
+    }).catch(error => {
         dispatch(authActions.getUserInfoFailure(error))
     })
+}
+
+const qtyUp = (id) => dispatch => {
+
+    dispatch(authActions.qtyUp(id))
+}
+const qtyDown = (id) => dispatch => {
+    dispatch(authActions.qtyDown(id))
+}
+
+
+const removeFromCart = (id) => dispatch => {
+    dispatch(authActions.removeFromCart(id));
+}
+
+const order = (data) => dispatch => {
+    dispatch(authActions.order());
+    return serverCall({
+        method: "POST",
+        url: "/orders/saveorder",
+        data: data
+    }).then(res => {
+        dispatch(authActions.orderSuccess(res.data))
+    }).catch(error=>{
+        dispatch(authActions.orderFailure(error))
+    })
+
+}
+
+const confirmOrder = (orderId) => dispatch =>{
+    dispatch(authActions.orderConfirm())
+    return serverCall({
+        method: "POST",
+        url: "/orders/confirmorder",
+        data: orderId
+    }).then(res =>{
+        dispatch(authActions.orderConfirmSuccess(res.data))
+        dispatch(getOrders());
+    }).catch(error =>{
+        dispatch(authActions.orderConfirmFailure(error))
+    })
+
 }
 
 export {
@@ -83,5 +127,10 @@ export {
     addToCart,
     emptyCart,
     changeInfo,
-    getUserInfo
+    getUserInfo,
+    qtyUp,
+    qtyDown,
+    removeFromCart,
+    order,
+    confirmOrder
 }

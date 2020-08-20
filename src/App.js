@@ -1,86 +1,109 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Naslovna from "./components/Naslovna";
-import Login from "./components/Login";
-import Navigation from "./components/Navigation"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-import Muskarci from "./components/Muskarci";
-import Zene from "./components/Zene";
-import Djeca from "./components/Djeca";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import NotFound from "./components/NotFound";
-import {currentUser} from "./redux/services/dashboard.service"
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import MenPage from "./pages/MenPage"
-import AboutPage from "./pages/AboutPage"
-import ContactPage from "./pages/ContactPage";
-import KidsPage from "./pages/KidsPage";
-
-import WomenPage from "./pages/WomenPage";
-import LoginPage from "./pages/LoginPage";
-import {Provider} from "react-redux";
 import store from "./redux/store";
-import RegistrationPage from "./pages/RegistrationPage";
-import {BrowserRouter as Router, BrowserRouter, Route, Switch} from "react-router-dom";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
-
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: null,
-            auth: null,
-            some:null
-        }
-    }
-    componentDidMount() {
-        const {currentUser} = this.props;
-        this.setState({some:true}, () => currentUser())
-
-    }
-
-    render() {
-        const {user,auth} = this.props;
-        console.log(this.state);
-        return (
-
-            <main>
-                <Header></Header>
-
+import {Provider} from "react-redux";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import Navigation from "./containers/Navigation";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
+import {PersistGate} from 'redux-persist/integration/react'
+import {persistorr} from "./redux/store"
+import MenPage from "./containers/MenPage";
+import WomenPage from "./containers/WomenPage";
+import KidsPage from "./containers/KidsPage";
+import ContactPage from "./containers/ContactPage";
+import AboutPage from "./containers/AboutPage";
+import LoginPage from "./containers/LoginPage";
+import AdminDashboardPage from "./containers/admin/AdminDashboardPage";
+import AddProductPage from "./containers/admin/AddProductPage";
+import RegistrationPage from "./containers/RegistrationPage";
+import OrdersPage from "./containers/OrdersPage";
+import UserInfoPage from "./containers/UserInfoPage";
+import CartPage from "./containers/CartPage";
+import CheckoutPage from "./containers/CheckoutPage";
+import DashboardPage from "./containers/DashboardPage";
+import {MDBIcon} from "mdbreact";
 
 
-                <Navigation  />
+const Routes = () =>
+    <div className={"container-fluid"} >
 
+            <Header></Header>
+            <Navigation></Navigation>
+            <div >
+            <Switch>
+                <Route path="/muskarci">
+                    <MenPage/>
+                </Route>
+                <Route path="/zene">
+                    <WomenPage/>
+                </Route>
+                <Route path="/djeca">
+                    <KidsPage/>
+                </Route>
+                <Route path="/contact">
+                    <ContactPage/>
+                </Route>
+                <Route path="/about">
+                    <AboutPage/>
+                </Route>
 
-                <Footer></Footer>
-            </main>
+                <Route path="/login">
+                    <LoginPage/>
+                </Route>
 
-        )
-    }
-}
-/*const mapStateToProps = state => {
-    return {
-        user: state.dashboard.user,
-        auth: state.auth
-    };
-};
-const mapDispatchToProps = dispatch =>{
-    return {
-        currentUser: () => {
-            return dispatch(currentUser());
-        }
-    };
-}
+                <Route path="/admin">
+                    <AdminDashboardPage/>
+                </Route>
+                <Route path="/dodaj">
+                    <AddProductPage></AddProductPage>
+                </Route>
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App)*/
+                <Route path="/register">
+                    <RegistrationPage></RegistrationPage>
+                </Route>
+                <Route path="/narudzbe">
+                    <OrdersPage></OrdersPage>
+                </Route>
+                <Route path="/myinfo">
+                    <UserInfoPage></UserInfoPage>
+                </Route>
+                <Route path="/cart">
+                    <CartPage></CartPage>
+                </Route>
+                <Route path="/checkout">
+                    <CheckoutPage></CheckoutPage>
+                </Route>
+                <Route path="/">
+                    <DashboardPage></DashboardPage>
+                </Route>
+            </Switch>
 
-App.propTypes = {
-    currentUser: PropTypes.func
-};
+            </div>
+        <Footer></Footer>
+    </div>
+ReactDOM.render(
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistorr}>
+            <BrowserRouter>
+                <Routes></Routes>
+            </BrowserRouter>
+        </PersistGate>
+    </Provider>
+
+    ,
+    document.getElementById('root')
+);
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

@@ -1,13 +1,259 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.product-card {
+    background-color: aqua;
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+
+.white{
+
+    color: blue;
+}
+
+.img-fluid{
+    height: auto;
+    max-height: 250px;
+    width: auto;
+    max-width: 250px;
+
+}
+
+.button {
+    size: 10px;
+}
+
+.myButton {
+    box-shadow: -6px -8px 7px -30px #9fb4f2;
+    background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    background-color: #7892c2;
+    text-align: center;
+    border-radius: 10px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 5px;
+    text-decoration: none;
+    text-shadow: 0em 0em 3em #668be8;
+    margin: auto;
+    padding: 3px 6px;
+}
+
+
+.myButton:hover {
+    background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
+    background-color: #476e9e;
+}
+
+.myButton:active {
+    position: relative;
+    top: 1px;
+}
+
+.badge {
+    box-shadow: -6px -8px 7px -30px #9fb4f2;
+    background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+    background-color: #7892c2;
+    text-align: center;
+    border-radius: 10px;
+    display: inline-block;
+
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 5px;
+    padding: 7px 10px;
+    text-decoration: none;
+    text-shadow: 0px 0px 36px #668be8;
+
+}
+
+.round {
+    border-radius: 10%;
+    text-shadow: 0px 0px 36px #668be8;
+}
+
+.crossed {
+    text-decoration: line-through;
+}
+
+.none {
+
+}
+
+.cart-fixed {
+    text-align: center;
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+    width: 50px;
+    border: 3px solid #7892c2;
+    background-color: wheat;
+}
+
+sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    background-color: green;
+    border: 2px solid #4CAF50;
+}
+
+.relative {
+    position: relative;
+}
+
+
+.parent {
+    position: relative;
+}
+
+.child {
+    position: sticky;
+    /*margin-top: 30px;*/
+    /*margin-right: 20px;*/
+    margin-left: 77.5%;
+    cursor: pointer;
+    background-color: #7892c2;
+
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.centered {
+    position: fixed; /* or absolute */
+    top: 15%;
+    left: 50%;
+}
+
+.dropdownfilter {
+    background-color: #7892c2;
+
+}
+.myheader {
+    background-color: #7892c2;
+}
+
+.container {
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+.relative {
+    position: relative;
+}F
+
+.button .myButton .btn {
+    padding: 100px;
+}
+
+.cart-text{
+    padding-left: 50px
+
+ }
+
+.cursor{
+    cursor: pointer;
+}
+.btn-secondary2{
+    color: grey;
+}
+
+button.d-flex.justify-content-center.btn-secondary2.btn.btn-secondary{
+    background-color: #7892c2 !important;
+    color: white;
+    padding: 4px;
+}
+
+.card {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+
+.checkmark {
+    display:inline-block;
+    width: 22px;
+    height:22px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+}
+
+.checkmark_circle {
+    position: absolute;
+    width:22px;
+    height:22px;
+    background-color: green;
+    border-radius:11px;
+    left:0;
+    top:0;
+}
+
+.checkmark_stem {
+    position: absolute;
+    width:3px;
+    height:9px;
+    background-color:#fff;
+    left:11px;
+    top:6px;
+
+}
+
+.checkmark_kick {
+    position: absolute;
+    width:3px;
+    height:3px;
+    background-color:#fff;
+    left:8px;
+    top:12px;
+}
+
+.orderitem {
+    padding: 10px;
+    background-color: coral;
+}
+.container{
+    width: 320px;
+    height: 520px;
+}
+
+.mdbcontainer{
+    width: auto;
+    height: 10px;
+}
+.btn{
+    padding: 0px;
+}
+
+.size {
+
+    width: max-content;
+    position: center;
+}
+
+.underline{
+    border-bottom: 1px black solid;
 }
