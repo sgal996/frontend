@@ -257,3 +257,13 @@ button.d-flex.justify-content-center.btn-secondary2.btn.btn-secondary{
 .underline{
     border-bottom: 1px black solid;
 }
+
+.logo {
+    height: 50px;
+    width: 50px;
+}
+
+.footer {
+    height: 150px;
+
+}

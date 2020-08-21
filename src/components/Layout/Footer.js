@@ -8,31 +8,38 @@ class Footer extends Component {
     render() {
         return (
 
-                <MDBFooter color="black" className="container-fluid">
+                <MDBFooter color="black" className="container-fluid footer">
                     <MDBContainer fluid className="text-center text-md-left">
                         <MDBRow>
                             <MDBCol md="6">
-                                <h5 className="title">Footer Content</h5>
+                                <h5 className="title">Društvene mreže</h5>
                                 <p>
-                                    Here you can use rows and columns here to organize your footer
-                                    content.
+                                    <Row sm={1} md={6}>
+                                        <Col>
+                                            <img className={"img-fluid logo"} src={"/img/download.png"} height={"30px"}/>
+
+
+                                        </Col>
+                                        <Col><img className={"img-fluid logo"} src={"/img/insta-photo.png"}/></Col>
+                                        <Col>
+                                            <img className={"img-fluid logo"} src={"/img/twitter-photo.png"}/>
+                                        </Col>
+                                    </Row>
                                 </p>
                             </MDBCol>
                             <MDBCol md="6">
                                 <h5 className="title">Links</h5>
                                 <ul>
                                     <li className="list-unstyled">
-                                        <a href="#!">Link 1</a>
+                                        <a href="#!">O nama</a>
                                     </li>
                                     <li className="list-unstyled">
-                                        <a href="#!">Link 2</a>
+                                        <a href="#!">Kontakt</a>
                                     </li>
                                     <li className="list-unstyled">
-                                        <a href="#!">Link 3</a>
+                                        <a href="#!">Uvjeti prodaje</a>
                                     </li>
-                                    <li className="list-unstyled">
-                                        <a href="#!">Link 4</a>
-                                    </li>
+
                                 </ul>
                             </MDBCol>
                         </MDBRow>

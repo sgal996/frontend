@@ -19,7 +19,8 @@ const Products = [{
     discount: 10,
     category: "Muskarci",
     img: "Kids_shirt.jpg",
-    subCategory: "Majice"
+    subCategory: "Majice",
+    size: "S  L XL"
 },{
     id: 4,
     newProduct: false,

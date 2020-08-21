@@ -6,16 +6,44 @@ class About extends Component{
 
     render() {
         return (
-            <Container >
-                <Row>
-                    <Col sm="6" md="4" lg="2">.col</Col>
-                    <Col sm="6" md="4" lg="2">.col</Col>
-                    <Col sm="6" md="4" lg="2">.col</Col>
-                    <Col sm="6" md="4" lg="2">.col</Col>
-                </Row>
+            <div className={"container-fluid"}>
+                <div className={"justify-items-ceter"}>
+                <Row xs={1}>
+                    <Col>
+                    Clothes Shop d.o.o.
+                    </Col>
 
+                    <Col>
+                    Zadarska 1
+                    </Col>
+                    <Col>
+                        23000 Zadar
+                    </Col>
+                    <Col>
+                    OIB: 0323411063788
+                    </Col>
+                    <Col>
+                    SBERBANK d.d. Zagreb
+                    IBAN: HR792503007113000154363449
+                    </Col>
+                    <Col>
 
-            </Container>
+                    Radno vrijeme:
+
+                    00:00-24:00
+                    </Col>
+                    <Col>
+                    Kontakt
+
+                    Mob: +385 (0) 99 32480 9723
+                    </Col>
+                    <Col>
+                    e-mail:  prodaja@clothes-shop.hr
+                    </Col>
+                    </Row>
+
+                </div>
+            </div>
         )
     }
 }

@@ -52,7 +52,7 @@ class Login extends Component {
                         Prijava
                     </Button>
                 </Form>
-                //FIXME
+
             </div>);
     }
 
