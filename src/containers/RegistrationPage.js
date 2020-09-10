@@ -8,7 +8,7 @@ class RegistrationPage extends Component {
     render() {
         const {onRegister, registered} = this.props;
         return (
-            <div>
+            <div className={"container-fluid"}>
                 <Registration onRegister={onRegister} registered={registered} />
             </div>
 

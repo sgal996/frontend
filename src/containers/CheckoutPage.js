@@ -61,20 +61,21 @@ class CheckoutPage extends Component {
 
     render() {
         const {items,userInfo} = this.props;
-        const totalPrice = items.reduce((total, item) => total + item.price -(item.price * item.discount/100) * item.quantity, 0)
+        const totalPrice = items.reduce((total, item) => total + item.price * item.quantity -(item.price * item.discount/100* item.quantity) , 0)
         return (
             <div className={"container-fluid"}>
                 <Row sm={12} md={12} lg={12}>
                     <Col></Col>
-                    <Col>Naziv</Col>
-                    <Col>Količina</Col>
-                    <Col>Cijena</Col>
+                    <Col className={"margin3px"}><strong>Naziv</strong></Col>
+                    <Col className={"margin3px"}><strong>Veličina</strong></Col>
+                    <Col className={"margin3px"}><strong>Količina</strong></Col>
+                    <Col className={"margin3px"}><strong>Cijena</strong></Col>
                     <Col></Col>
                 </Row>
                 <Row>
                     <Col sm={12} md={12} lg={12}>
                         {
-                            items.map((item) => <CheckoutItem key={item.id} name={item.name} price={item.price}
+                            items.map((item) => <CheckoutItem key={item.id} size={item.size} name={item.name} price={item.price}
                                                               discount={item.discount} img={item.img}
                                                               quantity={item.quantity} id={item.id}></CheckoutItem>)
                         }
@@ -82,11 +83,11 @@ class CheckoutPage extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col sm={8} md={8} lg={8} xl={8} xs={8}></Col>
+                    <Col  sm={8} md={8} lg={8} xl={8} xs={8}></Col>
 
 
                     <Col sm={2} md={3} lg={3} xl={3}
-                         xs={2} className={"underline"}>Poštarina: {(totalPrice > 300) ? 0 : this.state.postarina} HRK</Col>
+                         xs={2} className={"underline"}> <strong>Poštarina: {(totalPrice > 300) ? 0 : this.state.postarina.toFixed(2)} HRK</strong></Col>
                     <Col/>
 
                 </Row>
@@ -95,7 +96,7 @@ class CheckoutPage extends Component {
 
 
                     <Col  sm={2} md={3} lg={3} xl={3}
-                         xs={2}><span>UKUPNO:</span> HRK {(totalPrice > 300) ? totalPrice : this.state.postarina + totalPrice}
+                         xs={2}><strong><span>UKUPNO:</span>  {(totalPrice > 300) ? totalPrice.toFixed(2) : (this.state.postarina + totalPrice).toFixed(2)} HRK </strong>
                     </Col>
                     <Col/>
 
@@ -153,7 +154,7 @@ class CheckoutPage extends Component {
                                                     value="Paypal"
                                                     className="form-check-input"
                                                 />
-                                                Trenutno nije moguće koristit Paypal
+                                                Trenutno nije moguće koristit Paypa
                                             </label>
 
                                         </Tooltip>
@@ -168,22 +169,24 @@ class CheckoutPage extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        {!!userInfo ? userInfo.name : "Gost"}, želite li da Vam narudžba bude poslana na sljedeću adresu:
-
+                        <strong>{!!userInfo ? userInfo.name : "Gost"}, želite li da Vam narudžba bude poslana na sljedeću adresu:
+                        </strong><br/>
                     </Col>
 
                 </Row>
                 <Row>
-                    <Col><Col><h3>{!!userInfo ? userInfo.adress : ""}</h3></Col></Col>
+                    <Col><h3>{!!userInfo ? userInfo.adress : ""}</h3></Col>
                 </Row>
 
                 <Row>
-                    <Col><Col><h3>{!!userInfo ? userInfo.postalCode : ""} {!!userInfo ? userInfo.city : ""} </h3></Col></Col>
+                    <Col><h3>{!!userInfo ? userInfo.postalCode : ""} {!!userInfo ? userInfo.city : ""} </h3></Col>
                     { !this.state.adressConfirmed &&
+                    <Col>
                     <div>
                     <Button onClick={this.handleAdressConfirmed} disabled={!(!!userInfo)} className={"myButton"} >Da</Button>
                     <Link to={"/myinfo"}><Button className={"myButton"} >Ne</Button></Link>
                     </div>
+                    </Col>
                         }
                     {
                         this.state.adressConfirmed &&

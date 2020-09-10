@@ -31,15 +31,20 @@ import CartPage from "./containers/CartPage";
 import CheckoutPage from "./containers/CheckoutPage";
 import DashboardPage from "./containers/DashboardPage";
 import {MDBIcon} from "mdbreact";
+import Terms from "./components/Layout/Terms";
+import ThePage from "./containers/ThePage";
+import AdminProducts from "./containers/admin/AdminProducts";
+import AllUsers from "./containers/admin/AllUsers";
 
 
 const Routes = () =>
     <div className={"container-fluid"} >
 
-            <Header></Header>
+
             <Navigation></Navigation>
-            <div >
-            <Switch>
+
+            <div className={"container-fluid"} style={{marginTop: "20px", marginBottom: "50px"}} >
+                <Switch>
                 <Route path="/muskarci">
                     <MenPage/>
                 </Route>
@@ -59,12 +64,22 @@ const Routes = () =>
                 <Route path="/login">
                     <LoginPage/>
                 </Route>
+                <Route path="/terms">
+                    <Terms></Terms>
+                </Route>
 
                 <Route path="/admin">
                     <AdminDashboardPage/>
                 </Route>
+                <Route path="/adminproducts">
+                    <AdminProducts/>
+                </Route>
                 <Route path="/dodaj">
                     <AddProductPage></AddProductPage>
+                </Route>
+
+                <Route path={"/allusers"}>
+                    <AllUsers/>
                 </Route>
 
                 <Route path="/register">
@@ -82,14 +97,23 @@ const Routes = () =>
                 <Route path="/checkout">
                     <CheckoutPage></CheckoutPage>
                 </Route>
-                <Route path="/">
+                <Route path="/dashboard">
                     <DashboardPage></DashboardPage>
                 </Route>
-            </Switch>
+                <Route path={"/"}>
+                    <ThePage/>
+                </Route>
 
+
+
+        </Switch>
             </div>
+
         <Footer></Footer>
+
     </div>
+
+
 ReactDOM.render(
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistorr}>

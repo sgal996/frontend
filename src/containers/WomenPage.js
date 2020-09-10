@@ -29,28 +29,28 @@ class WomenPage extends Component {
 
     render() {
 
-        const {products, addToCart} = this.props;
-        const items = Products.filter(product => (product.category === "Muskarci" && (!!this.state.option ? (product.subCategory === this.state.option) : true)));
+        const {products, addToCart, subcategories} = this.props;
+        const items = products.filter(product => (product.category === "Zene" && (!!this.state.option ? (product.subCategory === this.state.option) : true)));
         return (
             <div className={"container-fluid"} >
                 <img className={"rounded mx-auto d-block img-fluid"} src={"/img/women_fashionjpg.jpg"}/>
-                <Row><Filter applyFilter={this.applyFilter}/></Row>
-                <Row>
+                <Row><Filter subcategories={subcategories} applyFilter={this.applyFilter}/></Row>
+
 
                     <Row xs="1" sm="1" md="3" lg={"4"}>
 
                         {items && items.length > 0 &&
-                        items.map((product) => (
+                        items.map((product) => ( !(!!product.hidden) &&
                             <Col><Product name={product.name} description={product.description}
                                           newProduct={product.newProduct}
                                           price={product.price} category={product.category} img={product.img}
                                           key={product.id}
-                                          product={product} addToCart={addToCart}> </Product></Col>))}
+                                          product={product} addToCart={addToCart} sizes={!!product.size ? product.size.split(' ') : []}> </Product></Col>))}
 
                     </Row>
 
 
-                </Row>
+
             </div>
         );
     }
@@ -59,6 +59,7 @@ class WomenPage extends Component {
 const mapStateToProps = state => {
     return {
         products: state.shop.products,
+        subcategories: state.auth.subcategories
 
 
     };
@@ -68,7 +69,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getProducts: () => dispatch(getProducts()),
-        addToCart: (product) => dispatch(addToCart(product))
+        addToCart: (product) => dispatch(addToCart(product)),
+
 
     }
 };

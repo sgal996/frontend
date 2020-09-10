@@ -2,7 +2,10 @@ import {authActions} from "../modules/auth";
 import {serverCall} from './backendCall';
 import {shopActions} from "../modules/shop";
 import {getOrders} from "./shop.service"
+import {cartCalc} from "../modules/auth";
 
+
+const APP_PATH = 'http://localhost:3000'
 
 const login = (request) => dispatch => {
     dispatch(authActions.login());
@@ -16,12 +19,13 @@ const login = (request) => dispatch => {
         .then(res => {
             localStorage.setItem('auth', JSON.stringify(res.data));
             dispatch(authActions.loginSuccess(res.data));
-
+            dispatch(getSubcategories());
+            dispatch(getAllUsers());
 
 
         })
         .catch(error => {
-            dispatch(authActions.loginFailure(error.response.data));
+            dispatch(authActions.loginFailure(error));
         })
 
 };
@@ -34,6 +38,7 @@ const addToCart = (product) => dispatch => {
 const logout = () => dispatch => {
     dispatch(authActions.logout());
     localStorage.removeItem('auth');
+
 };
 
 const register = (request) => dispatch => {
@@ -61,6 +66,7 @@ const changeInfo = (info) => dispatch => {
         data: info
     }).then(res => {
         dispatch(authActions.changeInfoSuccess(res.data))
+        dispatch(getUserInfo())
     })
         .catch(error => {
             dispatch(authActions.changeInfoFailure(error))
@@ -81,6 +87,7 @@ const getUserInfo = () => dispatch => {
 const qtyUp = (id) => dispatch => {
 
     dispatch(authActions.qtyUp(id))
+
 }
 const qtyDown = (id) => dispatch => {
     dispatch(authActions.qtyDown(id))
@@ -99,23 +106,120 @@ const order = (data) => dispatch => {
         data: data
     }).then(res => {
         dispatch(authActions.orderSuccess(res.data))
-    }).catch(error=>{
+        dispatch(getOrders())
+    }).catch(error => {
         dispatch(authActions.orderFailure(error))
     })
 
 }
 
-const confirmOrder = (orderId) => dispatch =>{
+const confirmOrder = (orderId) => dispatch => {
     dispatch(authActions.orderConfirm())
     return serverCall({
         method: "POST",
         url: "/orders/confirmorder",
         data: orderId
-    }).then(res =>{
+    }).then(res => {
         dispatch(authActions.orderConfirmSuccess(res.data))
         dispatch(getOrders());
-    }).catch(error =>{
+    }).catch(error => {
         dispatch(authActions.orderConfirmFailure(error))
+    })
+
+}
+
+const getSubcategories = () => dispatch => {
+    dispatch(authActions.getSubcategories())
+    return serverCall({
+        method: "GET",
+        url: '/products/getsubcategories'
+    }).then(res => {
+            dispatch(authActions.getSubcategoriesSuccess(res.data))
+        }
+    ).catch(error => {
+            dispatch(authActions.getSubcategoriesFailure(error))
+        }
+    )
+}
+
+const addSubcategory = (string) => dispatch => {
+    dispatch(authActions.addSubcategories());
+
+    return serverCall({
+        method: 'POST',
+        url: '/products/addsubcategory',
+        data: string
+    }).then(res => {
+            dispatch(authActions.addSubcategoriesSuccess(res.data))
+        }
+    ).catch(error => {
+            dispatch(authActions.addSubcategoriesFailure(error))
+        }
+    )
+}
+
+const getAllUsers = () => dispatch =>{
+    dispatch(authActions.getAllUsers())
+    return serverCall({
+        method: 'GET',
+        url: '/admin/allusers'
+    }).then(res=>{
+        dispatch(authActions.getAllUsersSuccess(res.data))
+
+
+    }).catch(error =>{
+        dispatch(authActions.getAllUsersFailure(error))
+
+    })
+}
+
+const deactivateUser = (data) => dispatch =>{
+
+    dispatch(authActions.deactivateUser())
+    return serverCall({
+        method: 'PUT',
+        url: '/auth/activestatus',
+        data: data
+    }).then(res=>{
+        dispatch(authActions.deactivateUserSuccess(res.data))
+        dispatch(getAllUsers())
+
+    }).catch(error =>{
+        dispatch(authActions.deactivateUserFailure(error))
+    })
+}
+
+const orderDelivered = (data) => dispatch =>{
+    dispatch(authActions.orderDelivered())
+    return serverCall({
+        method: 'PUT',
+        url: '/orders/delivered',
+        data: data
+    }).then(res =>{
+        dispatch(authActions.orderDeliveredSuccess(res.data))
+        dispatch(getOrders())
+        }
+
+    ).catch(error => {
+        dispatch(authActions.orderDeliveredFailure(error))
+    })
+
+}
+
+
+const orderCanceled = (data) => dispatch =>{
+    dispatch(authActions.orderCanceled())
+    return serverCall({
+        method: 'PUT',
+        url: '/orders/cancel',
+        data: data
+    }).then(res =>{
+            dispatch(authActions.orderCanceledSuccess(res.data))
+            dispatch(getOrders())
+        }
+
+    ).catch(error => {
+        dispatch(authActions.orderCanceledFailure(error))
     })
 
 }
@@ -132,5 +236,11 @@ export {
     qtyDown,
     removeFromCart,
     order,
-    confirmOrder
+    confirmOrder,
+    addSubcategory,
+    getSubcategories,
+    getAllUsers,
+    deactivateUser,
+    orderDelivered,
+    orderCanceled
 }

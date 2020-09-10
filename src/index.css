@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.required
+{
+    color: red;
+}
+
 .product-card {
     background-color: aqua;
     margin-bottom: 20px;
@@ -266,4 +271,27 @@ button.d-flex.justify-content-center.btn-secondary2.btn.btn-secondary{
 .footer {
     height: 150px;
 
+}
+
+.mycont {
+    height: 50px;
+}
+
+.margin3px{
+    margin-right: 15px;
+}
+
+.marginbig{
+    margin-right: 40px;
+}
+
+.circle-with-text {
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    text-align: center;
+    display: flex;
+    background-color: whitesmoke;
+    height: 15px;
+    width: 15px;
 }

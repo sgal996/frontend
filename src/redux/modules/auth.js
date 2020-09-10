@@ -23,6 +23,26 @@ const types = {
     ORDER_CONFIRM: "auth/ORDER_CONFIRM",
     ORDER_CONFIRM_SUCCESS: "auth/ORDER_CONFIRM_SUCCESS",
     ORDER_CONFIRM_FAILURE: "auth/ORDER_CONFIRM_FAILURE",
+    GET_SUBCATEGORIES: "auth/GET_SUBCATEGORIES",
+    GET_SUBCATEGORIES_SUCCESS: "auth/GET_SUBCATEGORIES_SUCCESS",
+    GET_SUBCATEGORIES_FAILURE: "auth/GET_SUBCATEGORIES_FAILURE",
+    ADD_SUBCATEGORIES: "auth/ADD_SUBCATEGORIES",
+    ADD_SUBCATEGORIES_SUCCESS: "auth/ADD_SUBCATEGORIES_SUCCESS",
+    ADD_SUBCATEGORIES_FAILURE: "auth/ADD_SUBCATEGORIES_FAILURE",
+    GET_ALL_USERS: "auth/GET_ALL_USERS",
+    GET_ALL_USERS_SUCCESS: "auth/GET_ALL_USERS_SUCCESS",
+    GET_ALL_USERS_FAILURE: "auth/GET_ALL_USERS_FAILURE",
+    DEACTIVATE_USER: "auth/DEACTIVATE_USER",
+    DEACTIVATE_USER_SUCCESS: "auth/DEACTIVATE_USER_SUCCESS",
+    DEACTIVATE_USER_FAILURE: "auth/DEACTIVATE_USER_FAILURE",
+
+    ORDER_DELIVERED: "auth/ORDER_DELIVERED",
+    ORDER_DELIVERED_SUCCESS: "auth/ORDER_DELIVERED_SUCCESS",
+    ORDER_DELIVERED_FAILURE: "auth/ORDER_DELIVERED_FAILURE",
+
+    ORDER_CANCELED: "auth/ORDER_CANCELED",
+    ORDER_CANCELED_SUCCESS: "auth/ORDER_CANCELED_SUCCESS",
+    ORDER_CANCELED_FAILURE: "auth/ORDER_CANCELED_FAILURE"
 
 };
 
@@ -51,6 +71,27 @@ const actions = {
     orderConfirm: () => ({type:types.ORDER_CONFIRM}),
     orderConfirmSuccess: (message) => ({type:types.ORDER_CONFIRM_SUCCESS, payload:message}),
     orderConfirmFailure: (error) => ({type:types.ORDER_CONFIRM_FAILURE, error: error}),
+    getSubcategories: () => ({type: types.GET_SUBCATEGORIES}),
+    getSubcategoriesSuccess: (data) => ({type: types.GET_SUBCATEGORIES_SUCCESS, payload: data}),
+    getSubcategoriesFailure: (error) => ({type: types.GET_SUBCATEGORIES_FAILURE, error: error}),
+    addSubcategories: () => ({type: types.ADD_SUBCATEGORIES}),
+    addSubcategoriesSuccess: (data) => ({type: types.ADD_SUBCATEGORIES_SUCCESS, payload: data}),
+    addSubcategoriesFailure: (error) => ({type: types.ADD_SUBCATEGORIES_FAILURE, error: error}),
+    getAllUsers: () => ({type: types.GET_ALL_USERS}),
+    getAllUsersSuccess: (data) => ({type: types.GET_ALL_USERS_SUCCESS, payload: data}),
+    getAllUsersFailure: (error) => ({type: types.GET_ALL_USERS_FAILURE, payload: error}),
+    deactivateUser: () => ({type: types.DEACTIVATE_USER}),
+    deactivateUserSuccess: (user) => ({type: types.DEACTIVATE_USER_SUCCESS, payload: user}),
+    deactivateUserFailure: (error) => ({type: types.DEACTIVATE_USER_FAILURE, payload: error}),
+    orderDelivered: () => ({type: types.ORDER_DELIVERED}),
+    orderDeliveredSuccess: (data) => ({type: types.ORDER_DELIVERED_SUCCESS, payload: data}),
+    orderDeliveredFailure: (error) => ({type: types.ORDER_DELIVERED_FAILURE, payload: error}),
+    orderCanceled: () => ({type: types.ORDER_CANCELED}),
+    orderCanceledSuccess: (data) => ({type: types.ORDER_CANCELED_SUCCESS, payload: data}),
+    orderCanceledFailure: (error) => ({type: types.ORDER_CANCELED_FAILURE, payload: error})
+
+
+
 
 
 
@@ -58,9 +99,11 @@ const actions = {
 
 }
 
+
+
 const initialState = () => ({
 
-    loading: true,
+    loading: false,
     authenticated: false,
     registered: false,
     cart: [],
@@ -68,7 +111,10 @@ const initialState = () => ({
     error: null,
     quantity: [{}],
     orderMessage: "",
-    orderConfirmedMessage: ""
+    orderConfirmedMessage: "",
+    subcategories: [],
+    user: {roles:[]},
+    allUsers: null
 });
 
 const auth = (state = initialState(), action) => {
@@ -106,7 +152,7 @@ const auth = (state = initialState(), action) => {
                 userInfo: null,
                 error: null,
                 orderMessage: "",
-                user: {}
+                user: {roles:[]}
 
 
             }
@@ -281,6 +327,109 @@ const auth = (state = initialState(), action) => {
                 loading: false,
                 orderConfirmedMessage: action.payload
             }
+        case types.GET_SUBCATEGORIES:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.GET_SUBCATEGORIES_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                subcategories: action.payload
+            }
+        case types.GET_SUBCATEGORIES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case types.ADD_SUBCATEGORIES:
+            return {
+                ...state,
+                loading: true,
+
+            }
+        case types.ADD_SUBCATEGORIES_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                subcategories: [...state.subcategories, {...action.payload}]
+            }
+        case types.ADD_SUBCATEGORIES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case types.GET_ALL_USERS:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.GET_ALL_USERS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                allUsers: action.payload
+            }
+        case types.GET_ALL_USERS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case types.DEACTIVATE_USER:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.DEACTIVATE_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                message: action.payload
+            }
+        case types.DEACTIVATE_USER_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+
+        case types.ORDER_DELIVERED:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.ORDER_DELIVERED_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                message: action.payload
+            }
+        case types.ORDER_DELIVERED_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+        case types.ORDER_CANCELED:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.ORDER_CANCELED_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case types.ORDER_CANCELED_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
         default:
             return state;
 
@@ -299,7 +448,10 @@ function isExist(product, cart) {
 
 
 export {
-    actions as authActions
+    actions as authActions,
+
+
+
 };
 
 export default auth;

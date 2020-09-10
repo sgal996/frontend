@@ -1,7 +1,7 @@
 const Products = [{
     id: 1,
     newProduct: true,
-    name: "First",
+    name: "Hoodie",
     description: "Prvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizuPrvi proizvod u nizu",
     price: 250,
     discount: 10,
@@ -13,8 +13,8 @@ const Products = [{
 {
     id: 3,
     newProduct: true,
-    name: "Third",
-    description: "Treci proizvod u nizu",
+    name: "Shirt",
+    description: "Predivna ljetna košulja za Njega",
     price: 250,
     discount: 10,
     category: "Muskarci",
@@ -24,7 +24,7 @@ const Products = [{
 },{
     id: 4,
     newProduct: false,
-    name: "Fourth",
+    name: "Sneakers",
     description: "Cetvrti proizvod u nizu",
     price: 250,
     discount: 20,
@@ -35,7 +35,7 @@ const Products = [{
 },{
     id: 5,
     newProduct: false,
-    name: "Fifth",
+    name: "Shorts",
     description: "Peti proizvod u nizu",
     price: 250,
     discount: 10,

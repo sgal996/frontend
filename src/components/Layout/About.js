@@ -6,10 +6,13 @@ class About extends Component{
 
     render() {
         return (
-            <div className={"container-fluid"}>
-                <div className={"justify-items-ceter"}>
-                <Row xs={1}>
-                    <Col>
+            <div className={"container-fluid"} >
+                <div style={{marginBottom: "70px"}}></div>
+                <img className={"img-fluid"} src={"/img/Clothes_shop.jpg"}/>
+                <div className={"container-fluid align-content-center"}>
+                    <strong >
+                <Row  xs={1}>
+                    <Col >
                     Clothes Shop d.o.o.
                     </Col>
 
@@ -24,8 +27,9 @@ class About extends Component{
                     </Col>
                     <Col>
                     SBERBANK d.d. Zagreb
-                    IBAN: HR792503007113000154363449
+
                     </Col>
+                    <Col>IBAN: HR792503007113000154363449</Col>
                     <Col>
 
                     Radno vrijeme:
@@ -41,7 +45,7 @@ class About extends Component{
                     e-mail:  prodaja@clothes-shop.hr
                     </Col>
                     </Row>
-
+                    </strong>
                 </div>
             </div>
         )

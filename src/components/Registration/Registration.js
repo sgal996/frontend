@@ -33,6 +33,12 @@ class Registration extends Component {
         return re.test(e)
     }
 
+    // checkBothPasswords = () =>{
+    //     if()
+    //         return true;
+    //     return false;
+    // }
+
     handleChangeName = e => {
         this.setState({name: e.target.value})
     };
@@ -62,7 +68,7 @@ class Registration extends Component {
     };
 
     handleEnter = (e) => {
-        console.log("u funkciji sam: " + e.key)
+
         if(e.key ===  "Enter")
             this.handleSubmit();
     }
@@ -75,20 +81,20 @@ class Registration extends Component {
             <Redirect to={"/login"}/>)
         }
         return (
-            <div>
+            <div className={"container-fluid"}>
                 <Row>
                     <Col xs={12} sm="12" md="4" lg="4" xl="4">
                     </Col>
                     <Col xs={12} sm="12" md="4" lg="4" xl="4">
                         <Form >
                             <FormGroup>
-                                <Label for="firstname">Ime</Label>
+                                <Label for="firstname">Ime <span className={"required"} >*</span></Label>
                                 <Input type={"text"} placeholder="Ime i Prezime"
                                        onChange={this.handleChangeName}></Input>
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="email">Email</Label>
+                                <Label for="email">Email <span className={"required"} >*</span></Label>
                                 <Input onKeyDown={this.handleEnter} type={"email"} placeholder="Email"
                                        onChange={this.handleChangeEmail}></Input>
                                 {
@@ -96,7 +102,7 @@ class Registration extends Component {
                                 }
                             </FormGroup>
                             <FormGroup>
-                                <Label for="password">Lozinka</Label>
+                                <Label for="password">Lozinka  <span className={"required"} >*</span></Label>
                                 <Input type={"password"} placeholder="Lozinka"
                                        onChange={this.handleChangePassword}></Input>
                                 {
@@ -104,12 +110,12 @@ class Registration extends Component {
                                 }
                             </FormGroup>
                             <FormGroup>
-                                <Label for="repassword">Lozinka</Label>
+                                <Label for="repassword">Potvrdi lozinku <span className={"required"} >*</span></Label>
                                 <Input type={"password"} placeholder="Ponovi lozinku"
                                        onChange={this.handleChangeRePassword}></Input>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="adress">Lozinka</Label>
+                                <Label for="adress">Adresa</Label>
                                 <Input type={"text"} placeholder="Vaša adresa"
                                        onChange={this.handleChangeAdress}></Input>
 
@@ -127,12 +133,12 @@ class Registration extends Component {
 
                             </FormGroup>
 
-                            <FormGroup check>
-                                <Label check>
-                                    <Input  type="checkbox" onChange={this.handleChangeAdministrator}/> Administrator
-                                </Label>
-                            </FormGroup>
-                            <Button className={'btn-lg btn-dark btn-block'} onClick={this.handleSubmit}>
+                            {/*<FormGroup check>*/}
+                            {/*    <Label check>*/}
+                            {/*        <Input  type="checkbox" onChange={this.handleChangeAdministrator}/> Administrator*/}
+                            {/*    </Label>*/}
+                            {/*</FormGroup>*/}
+                            <Button disabled={(!!this.state.password && (this.state.password === this.state.rePassword) ) ? false: true} className={'btn-lg btn-dark btn-block'} onClick={this.handleSubmit}>
                                 Registracija
                             </Button>
 

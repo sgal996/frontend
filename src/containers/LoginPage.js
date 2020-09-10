@@ -15,7 +15,7 @@ class LoginPage extends Component {
         if (authenticated) {
             return <Redirect
                 to={{
-                    pathname: "/",
+                    pathname: "/dashboard",
                     state: { from: this.props.location }
                 }} authenticated={authenticated}/>;
         }
@@ -25,7 +25,7 @@ class LoginPage extends Component {
                 <h2 className={'text-center'} style={{'padding': '20px'}}>
                     <span className={'font-weight-bold'}>Clothes Shop</span>.com
                 </h2>
-                <h3>Dobro došao, nazad!</h3>
+                <h3>Dobro došli, nazad!</h3>
                 {error && error.message &&
                 <div className="alert alert-danger">
                     <strong>Error!</strong> {error.message}

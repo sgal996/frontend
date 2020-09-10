@@ -46,29 +46,31 @@ class CartItem extends Component {
 
         return (
             <div className={"underline"}>
-                <Row xs={2} sm={1} md={6}>
-                    <Col xs={3}>
+                <Row  sm={6} md={12}>
+                    <Col xs={2}>
                         <img className={"img-fluid"} src={"/img/" + this.props.img}></img>
                     </Col >
 
-                    <Col xs={1}>{this.props.size}</Col>
-                    <Col xs={3}>
+                    <Col xs={2} >{this.props.size}</Col>
+                    <Col xs={3} >
                         <div className={"container-fluid d-flex justify-content-center"}>
                             <Button className={"d-flex justify-content-center btn-secondary2"} onClick={() => this.handleQtyDown(this.props.id)}>-</Button>
                             {this.state.quantity}
                             <Button className={"d-flex justify-content-center btn-secondary2"} onClick={() => this.handleQtyUp(this.props.id)}>+</Button>
                         </div>
                     </Col>
-                    <Col xs={2}>
-                        {this.props.price - (this.props.price * this.props.discount / 100)}
-                    </Col>
-                    <Col xs={2}>
+                    <Col xs={2}   >
+
+                        {this.props.price - (this.props.price * this.props.discount / 100) } HRK
+
+                        </Col>
+                    <Col className={"justify-content-center"} xs={2} >
                         {this.props.price * this.state.quantity - (this.props.price * this.props.discount / 100 * this.state.quantity)} HRK
                     </Col>
-                    <Col xs={1}>
-                        {this.props.name}
+                    <Col className={"margin3px"} >
+                       <strong> {this.props.name} </strong>
                     </Col>
-                    <Col xs={1}>
+                    <Col >
                         <Button className={"d-flex justify-content-center btn-secondary2"} onClick={() => this.handleRemove(this.props.id)}>Ukloni</Button>
                     </Col>
                 </Row>

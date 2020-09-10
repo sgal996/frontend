@@ -6,23 +6,26 @@ import auth from "./modules/auth";
 import logger from "redux-logger"
 import dashboard from "./modules/dashboard";
 import shop from "./modules/shop";
-import {persistStore, persistReducer} from "redux-persist";
+import {persistStore, persistReducer, persistCombineReducers} from "redux-persist";
 import storage from 'redux-persist/lib/storage'
 
-const combinedReducers = combineReducers({
+const rootReducer = combineReducers({
     auth,
-    dashboard,
-    shop
+    shop,
+    dashboard
+
 
 });
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist:['auth','shop'],
-    blacklist: ['dashboard']
+
+
+
 
 }
-const persistedReducer = persistReducer(persistConfig, combinedReducers);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const newPersistedReducer = persistCombineReducers(persistConfig, {auth, shop, dashboard});
 const composeEnhancers =
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?

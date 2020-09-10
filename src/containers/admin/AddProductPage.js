@@ -6,9 +6,12 @@ import {shopActions} from "../../redux/modules/shop";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {addProduct} from "../../redux/services/shop.service";
+import {addSubcategory, getSubcategories} from "../../redux/services/auth.service"
 import {Redirect} from "react-router-dom";
 import {KidsNumbers, MenNumbers, WomenNumbers} from "../../FootwearSizes";
 import ClothesSizes from "../../ClothesSizes";
+import {withRouter} from "react-router-dom"
+import AddCategory from "../../components/Admin/AddCategory";
 
 
 class AddProductPage extends Component {
@@ -21,7 +24,7 @@ class AddProductPage extends Component {
             img: '',
             category: 'Muskarci',
             subCategory: 'Majice',
-            size:'',
+            size: '',
             price: '',
             discount: '0'
         };
@@ -34,6 +37,7 @@ class AddProductPage extends Component {
         this.setState({description: e.target.value});
     };
     handlePriceChange = (e) => {
+
         this.setState({price: e.target.value});
     };
     handleDiscountChange = (e) => {
@@ -51,18 +55,20 @@ class AddProductPage extends Component {
     };
 
     handleAddProduct = () => {
-        const {onAddProduct} = this.props;
+        const {onAddProduct, history} = this.props;
         onAddProduct(this.state);
+        history.push("/admin")
+
     };
 
     handleSize = (e) => {
-        if(this.state.size === ""){
-            this.setState({size:e.target.value})
+        if (this.state.size === "") {
+            this.setState({size: e.target.value})
         }
-        if(this.state.size.includes(e.target.value)){
-            this.setState({size: this.state.size.replace(e.target.value,'')})
-        }else {
-            this.setState({size: this.state.size +' ' + e.target.value})
+        if (this.state.size.includes(e.target.value)) {
+            this.setState({size: this.state.size.replace(e.target.value, '')})
+        } else {
+            this.setState({size: this.state.size + ' ' + e.target.value})
         }
     }
 
@@ -72,9 +78,9 @@ class AddProductPage extends Component {
         const discounts = [{c: 'Bez popusta', idx: 0}, {c: '5%', idx: 5}, {c: '10%', idx: 10}, {c: '15%', idx: 15},
             {c: '20%', idx: 20}, {c: '25%', idx: 25}, {c: '30%', idx: 30}, {c: '35%', idx: 35}, {c: '40%', idx: 40},
             {c: '45%', idx: 45}, {c: '50%', idx: 50}]
-        const {user} = this.props;
+        const {user, onAddCategory, subcategories} = this.props;
 
-        if (user === undefined || user === null) {
+        if (!!user && user.roles.length < 2) {
             return (
                 <Redirect to={"/login"}/>
             )
@@ -108,35 +114,52 @@ class AddProductPage extends Component {
                                 <Label for={'subcategory'}>Podkategorija</Label>
                                 <Input type={'select'} name={'subcategory'} id={'subcategory'}
                                        onChange={this.handleSubCategoryChange}>
-                                    {subCategories.map((c) =>
-                                        <option key={c.idx} value={c.idx}>{c.c}</option>
+                                    {subcategories.map((c) =>
+                                        <option key={c.id} value={c.name}>{c.name}</option>
                                     )}
 
+
                                 </Input>
+                                <AddCategory addCategory={onAddCategory}/>
                             </FormGroup>
-                            <FormGroup className={"container-fluid"}  >
+                            <FormGroup className={"container-fluid"}>
                                 <Label for={'size'}>Odaberi veličine</Label>
-                                <br/>{ (this.state.subCategory === "Majice" || this.state.subCategory === "Hlače")
-                                    &&
-                            ClothesSizes.map((size) =>  <div className={"d-flex"}><Label for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox" placeholder={size} name={size} value={size}/> </div>  )
+                                <br/>{(this.state.subCategory === "Majice" || this.state.subCategory === "Hlače")
+                            &&
+                            ClothesSizes.map((size) => size === 'Z' ?
+                                <div className={"d-flex"}><Label for={'XL'}> {'XL'} </Label> <Input
+                                    onChange={this.handleSize} type="checkbox" placeholder={'XL'} name={'XL'}
+                                    value={size}/></div> :
+                                <div className={"d-flex"}><Label for={size}> {size} </Label> <Input
+                                    onChange={this.handleSize} type="checkbox" placeholder={size} name={size}
+                                    value={size}/></div>)
                             }
                                 {
                                     (this.state.subCategory === "Obuća" && this.state.category === "Muskarci")
                                     &&
-                                    MenNumbers.map((size) =>  <div className={"d-flex"}><Label for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox" placeholder={size} name={size} value={size}/> </div>  )
+                                    MenNumbers.map((size) => <div className={"d-flex"}><Label
+                                        for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox"
+                                                                           placeholder={size} name={size} value={size}/>
+                                    </div>)
 
                                 }
 
                                 {
                                     (this.state.subCategory === "Obuća" && this.state.category === "Zene")
                                     &&
-                                    WomenNumbers.map((size) =>  <div className={"d-flex"}><Label for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox" placeholder={size} name={size} value={size}/> </div>  )
+                                    WomenNumbers.map((size) => <div className={"d-flex"}><Label
+                                        for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox"
+                                                                           placeholder={size} name={size} value={size}/>
+                                    </div>)
 
                                 }
                                 {
                                     (this.state.subCategory === "Obuća" && this.state.category === "Djeca")
                                     &&
-                                    KidsNumbers.map((size) =>  <div className={"d-flex"}><Label for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox" placeholder={size} name={size} value={size}/> </div>  )
+                                    KidsNumbers.map((size) => <div className={"d-flex"}><Label
+                                        for={size}> {size} </Label> <Input onChange={this.handleSize} type="checkbox"
+                                                                           placeholder={size} name={size} value={size}/>
+                                    </div>)
 
                                 }
 
@@ -160,12 +183,16 @@ class AddProductPage extends Component {
                                 <Label for={'img'}>Photo</Label>
 
 
-                                <Input  type={'file'} name={'img'} id={'img'} onChange={this.handleImageChange}/>
+                                <Input type={'file'} name={'img'} id={'img'} onChange={this.handleImageChange}/>
 
                             </FormGroup>
-                            <Button className={'btn-lg btn-dark btn-block'} onClick={this.handleAddProduct}>
-                                Dodaj
-                            </Button>
+                            <div className={"container-fluid"}>
+                                <Button
+                                    disabled={(!!this.state.price && !!this.state.name && !!this.state.size && !!this.state.img) ? false : true}
+                                    className={'btn-lg btn-dark btn-block'} onClick={this.handleAddProduct}>
+                                    Dodaj
+                                </Button>
+                            </div>
                         </Form>
                     </Col>
                 </Row>
@@ -176,21 +203,25 @@ class AddProductPage extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddProduct: (product) => dispatch(addProduct(product))
+        onAddProduct: (product) => dispatch(addProduct(product)),
+        onAddCategory: (category) => dispatch(addSubcategory(category)),
+
     }
 }
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user
+        user: state.auth.user,
+        subcategories: state.auth.subcategories
     }
 }
 AddProductPage.propTypes = {
-    onAddProduct: PropTypes.func
+    onAddProduct: PropTypes.func,
+
 };
 
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(AddProductPage);
+)(AddProductPage));

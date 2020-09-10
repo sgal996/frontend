@@ -13,7 +13,8 @@ class   CheckoutItem extends Component{
             <div className={"underline"}>
                 <Row>
                     <Col> <img className={"img-fluid"} src={"/img/" + this.props.img}></img> </Col>
-                    <Col>{this.props.name}</Col>
+                    <Col className={"margin3px"}><strong>{this.props.name}</strong></Col>
+                    <Col className={"margin3px"}><strong>{this.props.size}</strong></Col>
                     <Col>{this.props.quantity} </Col>
                     <Col>{this.props.price * this.props.quantity -( this.props.price * this.props.discount/100 * this.props.quantity ) } HRK</Col>
                     <Col></Col>

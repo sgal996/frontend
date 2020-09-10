@@ -6,6 +6,7 @@ import Input from "reactstrap/lib/Input";
 import {Button} from "reactstrap";
 import Row from "reactstrap/lib/Row";
 import Col from "reactstrap/lib/Col";
+import {withRouter} from "react-router-dom";
 
 class UserInfo extends Component {
     constructor(props) {
@@ -61,8 +62,11 @@ class UserInfo extends Component {
         this.setState({postalCode: e.target.value})
     }
     handleSubmit = () => {
-        const {changeInfo} = this.props;
+        const {changeInfo, history} = this.props;
         changeInfo(this.state);
+        history.goBack();
+
+
     }
 
     render() {
@@ -101,7 +105,7 @@ class UserInfo extends Component {
                                            placeholder={!!this.props.user ? this.props.user.postalCode : ""}
                                            onChange={this.handlePostalCode}></Input>
                                 </FormGroup>
-                                <Button color="primary" onClick={this.handleSubmit}>Promijeni podatke</Button>
+                                <Button className={'btn-lg btn-dark btn-block'} onClick={this.handleSubmit}>Promijeni podatke</Button>
                             </Form>
                         </Col>
                         <Col lg={4} xl={4} md={4} sm={12} xs={12}></Col>
@@ -112,4 +116,4 @@ class UserInfo extends Component {
     }
 }
 
-export default UserInfo;
+export default withRouter(UserInfo);

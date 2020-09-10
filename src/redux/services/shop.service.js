@@ -43,8 +43,25 @@ const addProduct = (product) =>dispatch =>{
     }
     ).then(res=>{
         dispatch(shopActions.addProductSuccess(res.data))
+        dispatch(getProducts())
     }).catch(error=>{
         dispatch(shopActions.addProductFailure(error))
+    })
+}
+
+const deleteProduct = (product) => dispatch =>{
+    dispatch(shopActions.deleteProduct());
+    return serverCall({
+        method: 'POST',
+        url: 'products/deleteproduct',
+        data: product
+    }).then(res=>{
+        dispatch(shopActions.deleteProductSuccess(res.data))
+        dispatch(getProducts())
+
+        }
+    ).catch(error=>{
+        dispatch(shopActions.deleteProductFailure(error))
     })
 }
 
@@ -52,5 +69,6 @@ export {
     getProducts,
     getOrders,
 
-    addProduct
+    addProduct,
+    deleteProduct
 }

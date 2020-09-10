@@ -14,12 +14,15 @@ import {
     DropdownMenu,
     DropdownItem,
     NavbarText
-} from 'reactstrap';
+} from 'reactstrap/lib';
 
 
 import {connect} from "react-redux";
 import {logout} from "../redux/services/auth.service";
 import ContactPage from "./ContactPage";
+import {MDBIcon} from "mdbreact";
+import {cartCalc} from "../redux/modules/auth";
+import {number} from "prop-types";
 
 
 class Navigation extends Component {
@@ -28,7 +31,8 @@ class Navigation extends Component {
 
         this.state = {
             isOpen: false,
-            isAuthenticated: false
+            isAuthenticated: false,
+            numOfItems: 0
         };
 
 
@@ -49,20 +53,30 @@ class Navigation extends Component {
 
     }
 
+    calculateItems = () => {
+        const {cart} = this.props;
+        this.setState({numOfItems: cart.reduce((total, item) => total + item.quantity, 0)})
+
+    }
+
 
     render() {
-        const {user} = this.props;
-        const {isOpen} = this.state;
+        const {user, cart} = this.props;
+        const {isOpen, numOfItems} = this.state;
 
         const userLogged = user && user.roles && user.roles.length > 0;
         const adminLogged = userLogged && user.roles.includes('ROLE_ADMIN');
 
+
         return (
             <Navbar color="dark" expand="md">
-                <NavbarBrand href="/">Clothes Shop</NavbarBrand>
+                <NavbarBrand href="/dashboard">Clothes Shop</NavbarBrand>
+
                 <NavbarToggler className={"white"} onClick={this.toggle}> Menu </NavbarToggler>
+
+
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav>
+                    <Nav className={"container-fluid"}>
                         <NavItem>
                             <NavLink href="/muskarci" className="hoverable">Muskarci</NavLink>
                         </NavItem>
@@ -73,32 +87,28 @@ class Navigation extends Component {
                             <NavLink href="/djeca" className="hoverable">Djeca</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/contact" className="hoverable">Kontakt</NavLink>
+                            <NavLink href="/about" className="hoverable">O nama</NavLink>
                         </NavItem>
                         {
                             userLogged &&
-                                <NavItem>
-                            <UncontrolledDropdown  nav inNavbar>
-                                <DropdownToggle nav caret className="hoverable">
-                                    Postavke
-                                </DropdownToggle>
-                                <DropdownMenu  right>
-                                    <DropdownItem >
-                                        <NavLink href="/narudzbe" >Moje narudžbe</NavLink>
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        <NavLink href="/myinfo" >Moji podaci</NavLink>
-                                    </DropdownItem>
+                            <NavItem>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav caret className="hoverable">
+                                        Postavke
+                                    </DropdownToggle>
+                                    <DropdownMenu >
+                                        <DropdownItem >
+                                            <NavLink href="/narudzbe">Moje narudžbe</NavLink>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <NavLink href="/myinfo">Moji podaci</NavLink>
+                                        </DropdownItem>
 
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                                </NavItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
+                            </NavItem>
                         }
-                        {adminLogged &&
-                        <NavItem>
-                            <NavLink href="/dodaj" className="hoverable">Dodaj proizvod</NavLink>
-                        </NavItem>
-                        }
+
                         {adminLogged &&
                         <NavItem>
                             <NavLink href="/admin" className="hoverable">Admin Dashboard</NavLink>
@@ -115,6 +125,12 @@ class Navigation extends Component {
                             <NavLink href="/login" className="hoverable">Login</NavLink>
                         </NavItem>
                         }
+                        <NavItem className={"ml-auto"}>
+                            <NavLink href={"/cart"} className={"hoverable"}>
+                                <MDBIcon icon="cart-plus"/>
+
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>
@@ -281,6 +297,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
+        cart: state.auth.cart
     }
 }
 

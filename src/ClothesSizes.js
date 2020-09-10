@@ -1,3 +1,3 @@
-const ClothesSizes = ['S','M','L','XL']
+const ClothesSizes = ['S','M','L','Z']
 
 export default ClothesSizes;

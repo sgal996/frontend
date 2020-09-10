@@ -49,14 +49,16 @@ class CartPage extends Component {
 
         if (items !== undefined) {
             return (
-                <div className={"container-fluid"}>
-                    <Row  sm={6} md={12} lg={12}>
+                <div style={{marginBottom: "180px"}} className={"container-fluid"}>
+                    <Row className={"justify-items-center"}  sm={6} md={12} lg={12}>
+
                         <Col></Col>
-                        <Col>Veličina</Col>
-                        <Col >Količina</Col>
-                        <Col>Cijena</Col>
-                        <Col>Ukupno</Col>
-                        <Col></Col>
+                        <Col className={"align-content-right margin3px"}><strong>Veličina</strong></Col>
+                        <Col className={"justify-items-center margin3px"}><strong>Količina</strong></Col>
+                        <Col className={"justify-items-center margin3px"}><strong>Cijena</strong></Col>
+                        <Col><strong>Ukupno</strong></Col>
+
+
                     </Row>
                     <Row>
                         <Col sm={6} md={12} lg={12}>
@@ -75,7 +77,7 @@ class CartPage extends Component {
                         <Col xs={12}></Col>
                         <Col></Col>
                         <Col></Col>
-                        <Col>Ukupna cijena: {this.state.totalPrice} HRK</Col>
+                        <Col><strong>Ukupna cijena: {this.state.totalPrice} HRK</strong></Col>
                     </Row>
                     <Row>
                         <Col sm={12}>
@@ -99,7 +101,7 @@ class CartPage extends Component {
             )
         }
         return (
-            <div>košarica je prazna</div>
+            <div><strong>Košarica je prazna</strong></div>
         )
     }
 
