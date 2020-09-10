@@ -4,6 +4,8 @@ Backend at: https://github.com/sgal996/javaspring
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+First run: 'npm install' and then npm start
+
 ## Available Scripts
 
 In the project directory, you can run:
