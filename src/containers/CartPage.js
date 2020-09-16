@@ -23,7 +23,7 @@ class CartPage extends Component {
     componentDidMount() {
         const {items} = this.props;
 
-        this.setState({totalPrice: items.reduce((total, item) => total + (item.price-(item.price*item.discount/100)) * item.quantity, 0)})
+        this.setState({totalPrice: items.reduce((total, item) => total + (item.price - (item.price * item.discount / 100)) * item.quantity, 0)})
     }
 
 
@@ -50,7 +50,7 @@ class CartPage extends Component {
         if (items !== undefined) {
             return (
                 <div style={{marginBottom: "180px"}} className={"container-fluid"}>
-                    <Row className={"justify-items-center"}  sm={6} md={12} lg={12}>
+                    <Row className={"justify-items-center"} sm={6} md={12} lg={12}>
 
                         <Col></Col>
                         <Col className={"align-content-right margin3px"}><strong>Veličina</strong></Col>
@@ -64,7 +64,8 @@ class CartPage extends Component {
                         <Col sm={6} md={12} lg={12}>
                             {items.map((item) => <CartItem key={item.id} name={item.name} price={item.price}
                                                            discount={item.discount} img={item.img}
-                                                           quantity={item.quantity} id={item.id} qtyUp={qtyUp} qtyDown={qtyDown}
+                                                           quantity={item.quantity} id={item.id} qtyUp={qtyUp}
+                                                           qtyDown={qtyDown}
                                                            remove={removeFromCart} size={item.size}
                                                            click={this.calculateTotalPrice}></CartItem>)}
 
@@ -72,25 +73,26 @@ class CartPage extends Component {
                     </Row>
 
 
-
                     <Row>
                         <Col xs={12}></Col>
                         <Col></Col>
                         <Col></Col>
-                        <Col><strong>Ukupna cijena: {this.state.totalPrice} HRK</strong></Col>
+                        <Col><strong>Ukupna cijena: {this.state.totalPrice.toFixed(2)} HRK</strong></Col>
                     </Row>
                     <Row>
                         <Col sm={12}>
                             {
                                 items.length > 0 &&
-                                < Button className={'d-flex justify-content-center btn-secondary2'} onClick={this.emptyCart}>
+                                < Button className={'d-flex justify-content-center btn-secondary2'}
+                                         onClick={this.emptyCart}>
                                     Isprazni košaricu
                                 </Button>
                             }
                         </Col>
                         <Col sm={12}>{
                             items.length > 0 &&
-                            <Link to={"/checkout"}><Button className={"d-flex justify-content-center btn-secondary2"} > Plaćanje</Button></Link>
+                            <Link to={"/checkout"}><Button
+                                className={"d-flex justify-content-center btn-secondary2"}> Plaćanje</Button></Link>
 
 
                         }

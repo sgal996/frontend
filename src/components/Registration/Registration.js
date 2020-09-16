@@ -143,6 +143,7 @@ class Registration extends Component {
                             </Button>
 
                         </Form >
+                        Već ste registrirani? Kliknite <Link to={"/login"}>ovdje</Link> za login
                     </Col>
                 </Row>
                 <Col sm="4" md="4" lg="4" xl="4"></Col>

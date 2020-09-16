@@ -26,12 +26,8 @@ class LoginPage extends Component {
                     <span className={'font-weight-bold'}>Clothes Shop</span>.com
                 </h2>
                 <h3>Dobro došli, nazad!</h3>
-                {error && error.message &&
-                <div className="alert alert-danger">
-                    <strong>Error!</strong> {error.message}
-                </div>
-                }
-                <Login onLogin={onLogin} getUserInfo={getUserInfo} currentUser={currentUser} getOrders={getOrders} />
+
+                <Login error={error} onLogin={onLogin} getUserInfo={getUserInfo} currentUser={currentUser} getOrders={getOrders} />
                 <Link  to={'/register'}>Registracija</Link>
             </div>
         )

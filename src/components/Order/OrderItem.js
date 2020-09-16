@@ -55,11 +55,20 @@ class OrderItem extends Component {
                     <Row className={order.confirmed ? "none" : "orderitem round"}>
                         <Col xs={1} className={"d-flex"}>{order.orderId}</Col>
                         <Col xs={3}
-                             className={"marginbig d-flex justify-items-center"}>{moment(order.createdAt).format('DD.MM.YYYY, HH:mm:ss')}</Col>
+                             className={"marginbig d-flex justify-items-center"}>{moment(order.createdAt).format('DD.MM.YYYY, HH:mm:ss')}
+                        </Col>
                         <Col xs={4}
-                             className={"margin3px d-flex justify-items-center"}><strong>{order.username}</strong></Col>
+                             className={"margin3px d-flex justify-items-center"}><strong>{order.username}</strong>
+                        </Col>
+                        { order.price > 300 ?
+
                         <Col xs={2}
-                             className={'d-flex justify-content-center '}><strong>{order.price.toFixed(2)} HRK</strong></Col>
+                             className={'d-flex justify-content-center '}><strong>{order.price.toFixed(2)} HRK</strong>
+                        </Col> : <Col xs={2}
+                                      className={'d-flex justify-content-center '}><strong>{(order.price+35).toFixed(2)} HRK</strong>
+                            </Col>
+
+                        }
 
                         {
                             order.cancelled &&
@@ -124,12 +133,12 @@ class OrderItem extends Component {
                                         <Col xs={6} className={'text-right text-muted'}>
                                             {!!p.discount &&
                                             <div>
-                                                {p.price - (p.price * p.discount / 100)} HRK
+                                                {(p.price - (p.price * p.discount / 100)).toFixed(2)} HRK
                                             </div>
                                             }
                                             {
                                                 !p.discount &&
-                                                <div>{p.price} HRK</div>
+                                                <div>{p.price.toFixed(2)} HRK</div>
                                             }
                                         </Col>
 
@@ -138,9 +147,20 @@ class OrderItem extends Component {
 
                                 )}
                                 {
+                                    order.price < 300 ? <Row>
+                                        <Col><strong>Poštarina: 35 HRK</strong></Col>
+                                    </Row> : <Row>
+                                        <Col><strong>Poštarina: 0 HRK</strong></Col>
+                                    </Row>
+                                }
+                                {
+                                    order.price > 300 ?
                                     <Row>
                                 <Col><strong>Ukupna cijena: {order.price.toFixed(2)} HRK</strong></Col>
-                                </Row>
+                                </Row> : <Row>
+                                            <Col><strong>Ukupna cijena: {(order.price + 35).toFixed(2)} HRK</strong></Col>
+                                        </Row>
+
                                 }
                                 {/*{!!order.coupon &&*/}
                                 {/*<Row style={{padding: '10px'}}>*/}

@@ -12,6 +12,7 @@ import {Col, Row} from "reactstrap";
 import ProductList from "../components/Product/ProductList";
 import Filter from "../components/Product/Filter";
 import ClothesSizes from "../ClothesSizes"
+import moment from "moment";
 
 
 class MenPage extends Component {
@@ -30,8 +31,9 @@ class MenPage extends Component {
     }
 
     componentDidMount() {
-        const {getProducts} = this.props;
+        const {getProducts, products} = this.props;
         this.setState({got: true}, () => getProducts());
+
 
     }
 
@@ -63,6 +65,8 @@ class MenPage extends Component {
                                               product={product} addToCart={addToCart} sizes={!!product.size ? product.size.split(' ') : []} > </Product></Col>))}
 
                         </Row>
+
+
 
 
 

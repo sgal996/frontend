@@ -36,8 +36,20 @@ class Login extends Component {
     }
 
     render() {
+        const {error} = this.props;
+        const {username, password} = this.state;
         return (
             <div>
+                {!!username && (!!password && password.length > 7)  && error && error.message && error.message === "Request failed with status code 500" &&
+                <div className="alert alert-danger">
+                    <strong>Error!</strong> Vaš račun je deaktiviran! Javite se na clothesshop@gmail.com kako bi otklonili problem!
+                </div>
+                }
+                {!!username && (!!password && password.length > 7) && error && error.message  && error.message === "Request failed with status code 401" &&
+                <div className="alert alert-danger">
+                    <strong>Error!</strong> Niste unijeli točne podatke. Pokušajte ponovno
+                </div>
+                }
                 <Form className={'login-form'}>
                     <FormGroup>
                         <Label>Email</Label>

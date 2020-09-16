@@ -81,12 +81,12 @@ class UserInfo extends Component {
 
                                 <FormGroup>
                                     <Label> <span>Ime</span> </Label>
-                                    <Input onKeyDown={this.handleEnter} type={'text'} placeholder={!!this.props.user ? this.props.user.name : ""}
+                                    <Input  onKeyDown={this.handleEnter} type={'text'} placeholder={!!this.props.user ? this.props.user.name : ""}
                                            onChange={this.handleName}></Input>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label> <span>Email</span> </Label>
-                                    <Input onKeyDown={this.handleEnter} type={'text'} placeholder={!!this.props.user ? this.props.user.mail : "" }
+                                    <Input disabled onKeyDown={this.handleEnter} type={'text'} placeholder={!!this.props.user ? this.props.user.mail : "" }
                                            onChange={this.handleMail}></Input>
                                 </FormGroup>
                                 <FormGroup>

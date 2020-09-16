@@ -42,7 +42,11 @@ const types = {
 
     ORDER_CANCELED: "auth/ORDER_CANCELED",
     ORDER_CANCELED_SUCCESS: "auth/ORDER_CANCELED_SUCCESS",
-    ORDER_CANCELED_FAILURE: "auth/ORDER_CANCELED_FAILURE"
+    ORDER_CANCELED_FAILURE: "auth/ORDER_CANCELED_FAILURE",
+
+    DELETE_SUBCATEGORY: "auth/DELETE_SUBCATEGORY",
+    DELETE_SUBCATEGORY_SUCCESS: "auth/DELETE_SUBCATEGORY_SUCCESS",
+    DELETE_SUBCATEGORY_FAILURE: "auth/DELETE_SUBCATEGORY_FAILURE",
 
 };
 
@@ -65,12 +69,12 @@ const actions = {
     qtyUp: (id) => ({type: types.QTY_UP, payload: id}),
     qtyDown: (id) => ({type: types.QTY_DOWN, payload: id}),
     removeFromCart: (id) => ({type: types.REMOVE_FROM_CART, payload: id}),
-    order: () => ({type:types.ORDER}),
-    orderSuccess: (message) => ({type: types.ORDER_SUCCESS, payload:message}),
-    orderFailure: (error) => ({type: types.ORDER_FAILURE, error:error}),
-    orderConfirm: () => ({type:types.ORDER_CONFIRM}),
-    orderConfirmSuccess: (message) => ({type:types.ORDER_CONFIRM_SUCCESS, payload:message}),
-    orderConfirmFailure: (error) => ({type:types.ORDER_CONFIRM_FAILURE, error: error}),
+    order: () => ({type: types.ORDER}),
+    orderSuccess: (message) => ({type: types.ORDER_SUCCESS, payload: message}),
+    orderFailure: (error) => ({type: types.ORDER_FAILURE, error: error}),
+    orderConfirm: () => ({type: types.ORDER_CONFIRM}),
+    orderConfirmSuccess: (message) => ({type: types.ORDER_CONFIRM_SUCCESS, payload: message}),
+    orderConfirmFailure: (error) => ({type: types.ORDER_CONFIRM_FAILURE, error: error}),
     getSubcategories: () => ({type: types.GET_SUBCATEGORIES}),
     getSubcategoriesSuccess: (data) => ({type: types.GET_SUBCATEGORIES_SUCCESS, payload: data}),
     getSubcategoriesFailure: (error) => ({type: types.GET_SUBCATEGORIES_FAILURE, error: error}),
@@ -88,17 +92,13 @@ const actions = {
     orderDeliveredFailure: (error) => ({type: types.ORDER_DELIVERED_FAILURE, payload: error}),
     orderCanceled: () => ({type: types.ORDER_CANCELED}),
     orderCanceledSuccess: (data) => ({type: types.ORDER_CANCELED_SUCCESS, payload: data}),
-    orderCanceledFailure: (error) => ({type: types.ORDER_CANCELED_FAILURE, payload: error})
-
-
-
-
-
-
+    orderCanceledFailure: (error) => ({type: types.ORDER_CANCELED_FAILURE, payload: error}),
+    deleteSubcategory: () => ({type: types.DELETE_SUBCATEGORY}),
+    deleteSubcategorySuccess: (message) => ({type: types.DELETE_SUBCATEGORY_SUCCESS, payload: message}),
+    deleteSubcategoryFailure: (error) => ({type: types.DELETE_SUBCATEGORY_FAILURE, error: error})
 
 
 }
-
 
 
 const initialState = () => ({
@@ -113,7 +113,7 @@ const initialState = () => ({
     orderMessage: "",
     orderConfirmedMessage: "",
     subcategories: [],
-    user: {roles:[]},
+    user: {roles: []},
     allUsers: null
 });
 
@@ -152,7 +152,7 @@ const auth = (state = initialState(), action) => {
                 userInfo: null,
                 error: null,
                 orderMessage: "",
-                user: {roles:[]}
+                user: {roles: []}
 
 
             }
@@ -254,7 +254,7 @@ const auth = (state = initialState(), action) => {
                 error: action.error
             }
         case types.QTY_UP:
-            console.log(action.payload)
+
             let qtyUpCart = [];
             for (let i = 0; i < state.cart.length; i++) {
                 if (state.cart[i].id === action.payload) {
@@ -284,10 +284,10 @@ const auth = (state = initialState(), action) => {
             let editedCart = [];
             for (let i = 0; i < state.cart.length; i++) {
                 if (state.cart[i].id === action.payload) {
-                    state.cart.splice(i,1)
+                    state.cart.splice(i, 1)
                 }
             }
-            editedCart=state.cart;
+            editedCart = state.cart;
             return {
                 ...state,
                 cart: editedCart
@@ -430,6 +430,23 @@ const auth = (state = initialState(), action) => {
                 loading: false,
                 error: action.error
             }
+        case types.DELETE_SUBCATEGORY:
+            return {
+                ...state,
+                loading: true
+            }
+        case types.DELETE_SUBCATEGORY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                subcategoryMessage: action.payload
+            }
+        case types.DELETE_SUBCATEGORY_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
         default:
             return state;
 
@@ -449,7 +466,6 @@ function isExist(product, cart) {
 
 export {
     actions as authActions,
-
 
 
 };

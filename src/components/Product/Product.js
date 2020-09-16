@@ -30,9 +30,12 @@ class Product extends Component {
     handleClick = () => {
         const {addToCart, product} = this.props;
         product.size = this.state.size;
-        addToCart(product);
+        if (this.state.size !== '' || (product.subCategory !== "Majice" && product.subCategory !== "Hlače" &&
+            product.subCategory !== "Obuća" && product.subCategory !== "Čarape" && product.subCategory !== "Donje rublje")) {
+            addToCart(product);
+            this.onShowAlert();
+        }
         this.onShowAlert();
-
 
     }
     onShowAlert = () => {
@@ -68,13 +71,13 @@ class Product extends Component {
                         className={!!product.discount === true ?
                             "crossed d-flex justify-content-center" :
                             "none d-flex justify-content-center"}>
-                        {price} HRK
+                        {price.toFixed(2)} HRK
                     </CardSubtitle>
                     {!!product.discount &&
                     <div className={" d-flex justify-content-center "}>
                         <Badge className={"margin3px"}>{product.discount} %</Badge></div>}
                     {!!product.discount && <CardSubtitle
-                        className={"d-flex justify-content-center"} >
+                        className={"d-flex justify-content-center"}>
                         {parseFloat(product.price - (product.price * product.discount / 100)).toFixed(2)}
                         HRK </CardSubtitle>}
                     <div>
@@ -84,7 +87,7 @@ class Product extends Component {
                                 {
                                     <form className={"container-fluid d-flex"}>
                                         {
-                                            !!sizes && sizes.map((char) => char!=='Z' ? !!char &&
+                                            !!sizes && sizes.map((char) => char !== 'Z' ? !!char &&
                                                 <div className={"container-fluid"}>
                                                     <label>
                                                         <input
@@ -123,14 +126,16 @@ class Product extends Component {
                                 <Badge>
 
 
-                                    <MDBIcon  icon="cart-plus"
-                                             style={{cursor: 'pointer'}} onClick={this.handleClick}>Dodaj u košaricu</MDBIcon>
+                                    <MDBIcon icon="cart-plus"
+                                             style={{cursor: 'pointer'}} onClick={this.handleClick}>Dodaj u
+                                        košaricu</MDBIcon>
                                     {
                                         newProduct &&
                                         <Badge
                                             className={"d-flex justify-content-center badge"}>
                                             New
-                                        </Badge>}
+                                        </Badge>
+                                    }
                                 </Badge>
                             </div>
 
@@ -152,13 +157,46 @@ class Product extends Component {
 
 
                 </CardBody>
+                {/*{*/}
+                {/*    this.state.isAdded && this.state.size !== ''  &&*/}
+                {/*    <Alert className={"d-flex justify-content-center"}*/}
+                {/*           color="primary">*/}
+                {/*        Proizvod je uspješno <br/>*/}
+                {/*        dodan u košaricu!!*/}
+                {/*    </Alert>*/}
+                {/*}*/}
+
                 {
-                    this.state.isAdded &&
+                    this.state.isAdded && this.state.size === '' && (product.subCategory !== "Majice" && product.subCategory !== "Hlače" &&
+                        product.subCategory !== "Obuća" && product.subCategory !== "Čarape" && product.subCategory !== "Donje rublje") &&
                     <Alert className={"d-flex justify-content-center"}
                            color="primary">
                         Proizvod je uspješno <br/>
                         dodan u košaricu!!
                     </Alert>
+                }
+
+                {
+
+                    this.state.isAdded && this.state.size === '' && (product.subCategory === "Majice" || product.subCategory === "Hlače" ||
+                        product.subCategory === "Obuća" || product.subCategory === "Čarape" || product.subCategory === "Donje rublje") &&
+                    <Alert className={"d-flex justify-content-center"}
+                           color="danger">
+                        Odaberi veličinu za <br/>
+                        dodavanje u košaricu!!
+                    </Alert>
+
+                }
+                {
+
+                    this.state.isAdded && this.state.size !== '' && (product.subCategory === "Majice" || product.subCategory === "Hlače" ||
+                        product.subCategory === "Obuća" || product.subCategory === "Čarape" || product.subCategory === "Donje rublje") &&
+                    <Alert className={"d-flex justify-content-center"}
+                           color="primary">
+                        Proizvod je uspješno <br/>
+                        dodan u košaricu!!
+                    </Alert>
+
                 }
             </Card>
 

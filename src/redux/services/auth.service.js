@@ -107,6 +107,7 @@ const order = (data) => dispatch => {
     }).then(res => {
         dispatch(authActions.orderSuccess(res.data))
         dispatch(getOrders())
+        dispatch(emptyCart())
     }).catch(error => {
         dispatch(authActions.orderFailure(error))
     })
@@ -157,6 +158,8 @@ const addSubcategory = (string) => dispatch => {
         }
     )
 }
+
+
 
 const getAllUsers = () => dispatch =>{
     dispatch(authActions.getAllUsers())
@@ -224,6 +227,22 @@ const orderCanceled = (data) => dispatch =>{
 
 }
 
+const deleteSubcategory = (string) => dispatch =>{
+    dispatch(authActions.deleteSubcategory())
+    return serverCall({
+        method: 'POST',
+        url: '/products/deletesubcategory',
+        data: string
+    }).then(res => {
+        dispatch(authActions.deleteSubcategorySuccess(res.data))
+        dispatch(getSubcategories())
+
+    }).catch(error => {
+        dispatch(authActions.deleteSubcategoryFailure(error))
+
+    })
+}
+
 export {
     login,
     logout,
@@ -242,5 +261,6 @@ export {
     getAllUsers,
     deactivateUser,
     orderDelivered,
-    orderCanceled
+    orderCanceled,
+    deleteSubcategory
 }

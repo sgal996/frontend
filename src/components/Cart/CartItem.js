@@ -61,11 +61,11 @@ class CartItem extends Component {
                     </Col>
                     <Col xs={2}   >
 
-                        {this.props.price - (this.props.price * this.props.discount / 100) } HRK
+                        {(this.props.price - (this.props.price * this.props.discount / 100)).toFixed(2) } HRK
 
                         </Col>
                     <Col className={"justify-content-center"} xs={2} >
-                        {this.props.price * this.state.quantity - (this.props.price * this.props.discount / 100 * this.state.quantity)} HRK
+                        {(this.props.price * this.state.quantity - (this.props.price * this.props.discount / 100 * this.state.quantity)).toFixed(2)} HRK
                     </Col>
                     <Col className={"margin3px"} >
                        <strong> {this.props.name} </strong>

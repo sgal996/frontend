@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import {register} from "../redux/services/auth.service";
 import {connect} from "react-redux";
 import Registration from "../components/Registration/Registration";
+import {Link} from "react-router-dom";
 
 class RegistrationPage extends Component {
     render() {
@@ -10,6 +11,7 @@ class RegistrationPage extends Component {
         return (
             <div className={"container-fluid"}>
                 <Registration onRegister={onRegister} registered={registered} />
+
             </div>
 
         )

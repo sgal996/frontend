@@ -35,6 +35,7 @@ import Terms from "./components/Layout/Terms";
 import ThePage from "./containers/ThePage";
 import AdminProducts from "./containers/admin/AdminProducts";
 import AllUsers from "./containers/admin/AllUsers";
+import OrderSuccess from "./components/Order/OrderSuccess";
 
 
 const Routes = () =>
@@ -60,6 +61,9 @@ const Routes = () =>
                 <Route path="/about">
                     <AboutPage/>
                 </Route>
+                    <Route path={"/ordersuccess"}>
+                        <OrderSuccess/>
+                    </Route>
 
                 <Route path="/login">
                     <LoginPage/>

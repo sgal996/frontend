@@ -11,6 +11,10 @@ class PaymentConfirmation extends Component {
         }
     }
 
+    componentDidMount() {
+
+    }
+
 
     handleOrder = () => {
         const {order} = this.props;

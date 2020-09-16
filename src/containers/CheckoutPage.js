@@ -26,15 +26,15 @@ class CheckoutPage extends Component {
         }
     }
 
-    handleAdressConfirmed = () =>{
+    handleAdressConfirmed = () => {
         this.setState({adressConfirmed: true});
         this.setState({buttonDisabled: false})
     }
 
-    handleOrder = (data) =>{
+    handleOrder = (data) => {
         const {onOrder, history} = this.props;
         onOrder(data);
-        history.push("/dashboard");
+        history.push("/ordersuccess");
     }
 
     toggle = () => {
@@ -43,7 +43,7 @@ class CheckoutPage extends Component {
 
 
     }
-    toggle2 = () =>{
+    toggle2 = () => {
         this.setState({hovered2: true}, () => {
             window.setTimeout(() => {
                 this.setState({hovered2: false})
@@ -60,8 +60,8 @@ class CheckoutPage extends Component {
     }
 
     render() {
-        const {items,userInfo} = this.props;
-        const totalPrice = items.reduce((total, item) => total + item.price * item.quantity -(item.price * item.discount/100* item.quantity) , 0)
+        const {items, userInfo} = this.props;
+        const totalPrice = items.reduce((total, item) => total + item.price * item.quantity - (item.price * item.discount / 100 * item.quantity), 0)
         return (
             <div className={"container-fluid"}>
                 <Row sm={12} md={12} lg={12}>
@@ -75,7 +75,8 @@ class CheckoutPage extends Component {
                 <Row>
                     <Col sm={12} md={12} lg={12}>
                         {
-                            items.map((item) => <CheckoutItem key={item.id} size={item.size} name={item.name} price={item.price}
+                            items.map((item) => <CheckoutItem key={item.id} size={item.size} name={item.name}
+                                                              price={item.price}
                                                               discount={item.discount} img={item.img}
                                                               quantity={item.quantity} id={item.id}></CheckoutItem>)
                         }
@@ -83,11 +84,12 @@ class CheckoutPage extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col  sm={8} md={8} lg={8} xl={8} xs={8}></Col>
+                    <Col sm={8} md={8} lg={8} xl={8} xs={8}></Col>
 
 
                     <Col sm={2} md={3} lg={3} xl={3}
-                         xs={2} className={"underline"}> <strong>Poštarina: {(totalPrice > 300) ? 0 : this.state.postarina.toFixed(2)} HRK</strong></Col>
+                         xs={2} className={"underline"}>
+                        <strong>Poštarina: {(totalPrice > 300) ? 0 : this.state.postarina.toFixed(2)} HRK</strong></Col>
                     <Col/>
 
                 </Row>
@@ -95,8 +97,9 @@ class CheckoutPage extends Component {
                     <Col sm={8} md={8} lg={8} xl={8} xs={8}></Col>
 
 
-                    <Col  sm={2} md={3} lg={3} xl={3}
-                         xs={2}><strong><span>UKUPNO:</span>  {(totalPrice > 300) ? totalPrice.toFixed(2) : (this.state.postarina + totalPrice).toFixed(2)} HRK </strong>
+                    <Col sm={2} md={3} lg={3} xl={3}
+                         xs={2}><strong><span>UKUPNO:</span> {(totalPrice > 300) ? totalPrice.toFixed(2) : (this.state.postarina + totalPrice).toFixed(2)} HRK
+                    </strong>
                     </Col>
                     <Col/>
 
@@ -105,71 +108,73 @@ class CheckoutPage extends Component {
                     <Col sm={12} md={12} lg={12}>
 
 
-                            <form>
+                        <form>
 
-                                <div className="form-check">
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="react-tips"
-                                            value="Pouzećem"
-                                            checked={true}
-                                            className="form-check-input"
+                            <div className="form-check">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        value="Pouzećem"
+                                        checked={true}
+                                        className="form-check-input"
 
-                                        />
-                                        Plaćanje pouzećem
-                                    </label>
+                                    />
+                                    Plaćanje pouzećem
+                                </label>
+                            </div>
+
+                            <div className="form-check">
+                                <div>
+                                    <p><span href="#" id="TooltipExample">Kreditna kartica</span>.</p>
+                                    <Tooltip placement="right" isOpen={this.state.hovered} target="TooltipExample"
+                                             toggle={this.toggle}>
+
+                                        <label>
+                                            <input
+                                                disabled={true}
+                                                type="radio"
+                                                name="react-tips"
+                                                value="Kreditna kartica"
+                                                className="form-check-input"
+                                            />
+                                            Trenutno nije omogućeno plaćanje karticama
+                                        </label>
+
+                                    </Tooltip>
                                 </div>
+                            </div>
 
-                                <div className="form-check">
-                                    <div>
-                                        <p> <span  href="#" id="TooltipExample">Kreditna kartica</span>.</p>
-                                        <Tooltip placement="right" isOpen={this.state.hovered} target="TooltipExample" toggle={this.toggle}>
+                            <div className="form-check">
+                                <div>
+                                    <p><span href="#" id="TooltipExample2">Paypal</span>.</p>
+                                    <Tooltip placement="right" isOpen={this.state.hovered2} target="TooltipExample2"
+                                             toggle={this.toggle2}>
 
-                                    <label>
-                                        <input
-                                            disabled={true}
-                                            type="radio"
-                                            name="react-tips"
-                                            value="Kreditna kartica"
-                                            className="form-check-input"
-                                        />
-                                        Trenutno nije omogućeno plaćanje karticama
-                                    </label>
+                                        <label>
+                                            <input
+                                                disabled={true}
+                                                type="radio"
+                                                name="react-tips"
+                                                value="Paypal"
+                                                className="form-check-input"
+                                            />
+                                            Trenutno nije moguće koristit Paypal
+                                        </label>
 
-                                        </Tooltip>
-                                    </div>
+                                    </Tooltip>
                                 </div>
-
-                                <div className="form-check">
-                                    <div>
-                                        <p> <span  href="#" id="TooltipExample2">Paypal</span>.</p>
-                                        <Tooltip placement="right" isOpen={this.state.hovered2} target="TooltipExample2" toggle={this.toggle2}>
-
-                                            <label>
-                                                <input
-                                                    disabled={true}
-                                                    type="radio"
-                                                    name="react-tips"
-                                                    value="Paypal"
-                                                    className="form-check-input"
-                                                />
-                                                Trenutno nije moguće koristit Paypa
-                                            </label>
-
-                                        </Tooltip>
-                                    </div>
-                                </div>
+                            </div>
 
 
-
-                            </form>
+                        </form>
                     </Col>
 
                 </Row>
                 <Row>
                     <Col>
-                        <strong>{!!userInfo ? userInfo.name : "Gost"}, želite li da Vam narudžba bude poslana na sljedeću adresu:
+                        <strong>{!!userInfo ? userInfo.name : "Gost"}, želite li da Vam narudžba bude poslana na
+                            sljedeću adresu:
                         </strong><br/>
                     </Col>
 
@@ -180,14 +185,15 @@ class CheckoutPage extends Component {
 
                 <Row>
                     <Col><h3>{!!userInfo ? userInfo.postalCode : ""} {!!userInfo ? userInfo.city : ""} </h3></Col>
-                    { !this.state.adressConfirmed &&
+                    {!this.state.adressConfirmed &&
                     <Col>
-                    <div>
-                    <Button onClick={this.handleAdressConfirmed} disabled={!(!!userInfo)} className={"myButton"} >Da</Button>
-                    <Link to={"/myinfo"}><Button className={"myButton"} >Ne</Button></Link>
-                    </div>
+                        <div>
+                            <Button onClick={this.handleAdressConfirmed} disabled={(!(!!userInfo)) || !(!!userInfo.adress) || !(!!userInfo.city)}
+                                    className={"myButton"}>Da</Button>
+                            <Link to={"/myinfo"}><Button className={"myButton"}>Ne</Button></Link>
+                        </div>
                     </Col>
-                        }
+                    }
                     {
                         this.state.adressConfirmed &&
                         <span className="checkmark">
@@ -199,7 +205,8 @@ class CheckoutPage extends Component {
                     }
                 </Row>
                 <Row>
-                    <PaymentConfirmation buttonDisabled={this.state.buttonDisabled} items={items} order={this.handleOrder} price={totalPrice}></PaymentConfirmation>
+                    <PaymentConfirmation buttonDisabled={this.state.buttonDisabled} items={items}
+                                         order={this.handleOrder} price={totalPrice}></PaymentConfirmation>
                 </Row>
             </div>
         )

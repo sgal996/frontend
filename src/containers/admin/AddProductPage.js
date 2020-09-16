@@ -6,12 +6,14 @@ import {shopActions} from "../../redux/modules/shop";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {addProduct} from "../../redux/services/shop.service";
-import {addSubcategory, getSubcategories} from "../../redux/services/auth.service"
+import {addSubcategory, deleteSubcategory, getSubcategories} from "../../redux/services/auth.service"
 import {Redirect} from "react-router-dom";
 import {KidsNumbers, MenNumbers, WomenNumbers} from "../../FootwearSizes";
 import ClothesSizes from "../../ClothesSizes";
 import {withRouter} from "react-router-dom"
 import AddCategory from "../../components/Admin/AddCategory";
+import SubcategoryDelete from "../../components/Admin/SubcategoryDelete";
+import Tooltip from "reactstrap/lib/Tooltip";
 
 
 class AddProductPage extends Component {
@@ -74,11 +76,11 @@ class AddProductPage extends Component {
 
     render() {
         const categories = [{c: 'Muskarci', idx: 'Muskarci'}, {c: 'Zene', idx: 'Zene'}, {c: 'Djeca', idx: 'Djeca'}];
-        const subCategories = [{c: 'Majice', idx: 'Majice'}, {c: 'Hlače', idx: 'Hlače'}, {c: 'Obuća', idx: 'Obuća'}];
+        // const subCategories = [{c: 'Majice', idx: 'Majice'}, {c: 'Hlače', idx: 'Hlače'}, {c: 'Obuća', idx: 'Obuća'}];
         const discounts = [{c: 'Bez popusta', idx: 0}, {c: '5%', idx: 5}, {c: '10%', idx: 10}, {c: '15%', idx: 15},
             {c: '20%', idx: 20}, {c: '25%', idx: 25}, {c: '30%', idx: 30}, {c: '35%', idx: 35}, {c: '40%', idx: 40},
             {c: '45%', idx: 45}, {c: '50%', idx: 50}]
-        const {user, onAddCategory, subcategories} = this.props;
+        const {user, onAddCategory, subcategories, deleteSubcategory} = this.props;
 
         if (!!user && user.roles.length < 2) {
             return (
@@ -120,10 +122,16 @@ class AddProductPage extends Component {
 
 
                                 </Input>
-                                <AddCategory addCategory={onAddCategory}/>
-                            </FormGroup>
+
+                                </FormGroup>
+                            <Row>
+                                <Col><AddCategory addCategory={onAddCategory}/></Col>
+                            </Row>
+                            <Row>
+                                <Col><SubcategoryDelete subcategories={subcategories} deleteSubcategory={deleteSubcategory}></SubcategoryDelete></Col>
+                            </Row>
                             <FormGroup className={"container-fluid"}>
-                                <Label for={'size'}>Odaberi veličine</Label>
+                                <Label for={'size'}>Odaberi veličine dostupne za prodaju</Label>
                                 <br/>{(this.state.subCategory === "Majice" || this.state.subCategory === "Hlače")
                             &&
                             ClothesSizes.map((size) => size === 'Z' ?
@@ -167,7 +175,8 @@ class AddProductPage extends Component {
                             <FormGroup>
                                 <br/>
                                 <Label>Cijena</Label>
-                                <Input placeholder={'Cijena'} onChange={this.handlePriceChange}/>
+                                <Input placeholder={'Cijena'} onChange={this.handlePriceChange} />
+                                <span className={"required"} >*</span><span>Decimalne vrijednosti trebaju biti odvojene točkom</span>
                             </FormGroup>
                             <FormGroup>
                                 <Label>Popust</Label>
@@ -187,8 +196,9 @@ class AddProductPage extends Component {
 
                             </FormGroup>
                             <div className={"container-fluid"}>
+
                                 <Button
-                                    disabled={(!!this.state.price && !!this.state.name && !!this.state.size && !!this.state.img) ? false : true}
+                                    disabled={(!!this.state.price && !!this.state.name &&  !!this.state.img) ? false : true}
                                     className={'btn-lg btn-dark btn-block'} onClick={this.handleAddProduct}>
                                     Dodaj
                                 </Button>
@@ -205,6 +215,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onAddProduct: (product) => dispatch(addProduct(product)),
         onAddCategory: (category) => dispatch(addSubcategory(category)),
+        deleteSubcategory: (category) => dispatch(deleteSubcategory(category))
 
     }
 }
@@ -212,13 +223,11 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
-        subcategories: state.auth.subcategories
+        subcategories: state.auth.subcategories,
+
     }
 }
-AddProductPage.propTypes = {
-    onAddProduct: PropTypes.func,
 
-};
 
 
 export default withRouter(connect(
